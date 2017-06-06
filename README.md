@@ -1,6 +1,6 @@
 # M8 Bot
 
-M8 Bot is a Discord chat bot designed for mixer streamers. It contains a few commands, including a way for livestreamers to better spread their message. A command list can be found at https://github.com/MAPReiff/M8-Bot/wiki/Bot-Commands
+M8 Bot is a Discord chat bot designed for mixer streamers. It contains a few commands, including a way for livestreamers to better spread their message. A command list can be found at https://github.com/MAPReiff/M8-Bot/wiki/Bot-Commands.
 
 
 ### [Click Here to Add the bot to your server!]
