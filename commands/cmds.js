@@ -10,7 +10,7 @@ exports.run = (client, message, params) => {
     .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
     .setThumbnail("http://i.imgur.com/nXvRJXM.png")
     .setTimestamp()
-    .addField("Help Page", "A full list of commands can be found at https://github.com/MAPReiff/M8-Bot/wiki/Bot-Commands")
+    .addField("Help Page", "A full list of commands can be found at http://m8bot.comixsyt.space/#info")
   message.channel.send({
     embed: helpEmbed
   });
