@@ -1,5 +1,5 @@
 var version = "2.2.1"
-var website = "http://m8bot.comixsyt.space";
+var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.gg/JBrAVYD"
 var embedColor = 0x9900FF;
