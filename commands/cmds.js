@@ -10,7 +10,7 @@ exports.run = (client, message, params) => {
     .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
     .setThumbnail("http://i.imgur.com/nXvRJXM.png")
     .setTimestamp()
-    .addField("Help Page", "A full list of commands can be found at https://m8bot.js.org/#info")
+    .addField("Help Page", "A full list of commands can be found at https://m8bot.js.org/#info.")
   message.channel.send({
     embed: helpEmbed
   });
@@ -19,7 +19,7 @@ exports.run = (client, message, params) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['c', 'commands', 'help', 'help m8bot'],
+  aliases: ['c', 'commands', 'help', 'help m8bot', 'cmd'],
   permLevel: 0
 };
 
