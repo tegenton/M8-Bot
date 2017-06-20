@@ -1,4 +1,4 @@
-var version = "2.3.1"
+var version = "2.3.2"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.gg/JBrAVYD"

@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   message.delete();
-  var userDir = __dirname.replace("commands", "users")
+  var userDir = __dirname.replace("commands", "/users/")
 
   const streamerFolder = userDir;
   const fs = require('fs');
@@ -24,7 +24,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
   permLevel: 0
 };
