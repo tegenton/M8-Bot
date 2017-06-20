@@ -25,5 +25,5 @@ exports.conf = {
 exports.help = {
   name: 'me',
   description: 'Get info about your discord account.',
-  usage: '!me'
+  usage: 'me'
 };

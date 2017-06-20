@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'dadjoke',
   description: 'Sends a funny pun courtesy of murfGUY\'s dadjoke database.',
-  usage: '!dadjoke'
+  usage: 'dadjoke'
 };

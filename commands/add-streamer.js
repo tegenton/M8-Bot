@@ -80,5 +80,5 @@ exports.conf = {
 exports.help = {
   name: 'add-streamer',
   description: 'Used to add a Mixer streamer to that chat. Must be done by server owner or admin.',
-  usage: '!add-streamer ___'
+  usage: 'add-streamer ___'
 };

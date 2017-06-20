@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'ping-off',
   description: 'Allows a server owner/admin to decide whether or not M8 Bot can use @here in that channel. Default is on.',
-  usage: '!ping-off'
+  usage: 'ping-off'
 };

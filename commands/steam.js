@@ -82,5 +82,5 @@ exports.conf = {
 exports.help = {
   name: 'steam',
   description: 'Used to get info about a steam game.',
-  usage: '!steam ___'
+  usage: 'steam ___'
 };

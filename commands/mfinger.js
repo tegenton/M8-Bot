@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'mfinger',
   description: 'Allows you to give the finger that is located in the middle of our appendages to others.',
-  usage: '!mfinger'
+  usage: 'mfinger'
 };

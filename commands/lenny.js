@@ -13,5 +13,5 @@ exports.conf = {
 exports.help = {
   name: 'lenny',
   description: '( ͡° ͜ʖ ͡°)',
-  usage: '!lenny'
+  usage: 'lenny'
 };

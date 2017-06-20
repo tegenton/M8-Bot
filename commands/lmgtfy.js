@@ -27,5 +27,5 @@ exports.conf = {
 exports.help = {
   name: 'lmgtfy',
   description: 'Gets a Let Me Google That For You link for any term you want.',
-  usage: '!lmgtfy ___'
+  usage: 'lmgtfy ___'
 };

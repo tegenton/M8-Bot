@@ -20,5 +20,5 @@ exports.conf = {
 exports.help = {
   name: 'ascii',
   description: 'Gets whatever you typed after !ascii and makes it into ASCII art.',
-  usage: '!ascii ___'
+  usage: 'ascii ___'
 };

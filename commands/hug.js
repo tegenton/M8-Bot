@@ -20,5 +20,5 @@ exports.conf = {
 exports.help = {
   name: 'hug',
   description: 'Wanna give someone a hug? Do it then!',
-  usage: '!hug ___'
+  usage: 'hug ___'
 };

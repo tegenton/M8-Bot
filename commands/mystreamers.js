@@ -24,7 +24,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: true,
+  guildOnly: false,
   aliases: [],
   permLevel: 0
 };
@@ -32,5 +32,5 @@ exports.conf = {
 exports.help = {
   name: 'mystreamers',
   description: 'Lists all streamers registered to a text channel.',
-  usage: '!mystreamers'
+  usage: 'mystreamers'
 };

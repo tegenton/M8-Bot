@@ -59,5 +59,5 @@ exports.conf = {
 exports.help = {
   name: 'del-streamer',
   description: 'Used to remove a Mixer streamer from that chat. Must be done by server owner or admin.',
-  usage: '!del-streamer ___'
+  usage: 'del-streamer ___'
 };

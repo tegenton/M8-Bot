@@ -74,5 +74,5 @@ exports.conf = {
 exports.help = {
   name: 'live',
   description: 'Force a live announcement.',
-  usage: '!live ___'
+  usage: 'live ___'
 };

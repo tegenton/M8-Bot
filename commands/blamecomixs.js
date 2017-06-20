@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'blamecomixs',
   description: 'Used whenever ComixsYT does something stupid and must be blamed!',
-  usage: '!blamecomixs'
+  usage: 'blamecomixs'
 };

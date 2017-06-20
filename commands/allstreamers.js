@@ -20,5 +20,5 @@ exports.conf = {
 exports.help = {
   name: 'allstreamers',
   description: 'Pulls a list of all the streamers that the bot stalks.',
-  usage: '!allstreamers'
+  usage: 'allstreamers'
 };

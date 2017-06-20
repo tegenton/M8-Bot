@@ -21,5 +21,5 @@ exports.conf = {
 exports.help = {
   name: 'coin',
   description: 'Flips a coin.',
-  usage: '!coin'
+  usage: 'coin'
 };

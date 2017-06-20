@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'chucknorris',
   description: 'Pulls a random Chun Norris fact.',
-  usage: '!chucknorris'
+  usage: 'chucknorris'
 };

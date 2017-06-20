@@ -53,5 +53,5 @@ exports.conf = {
 exports.help = {
   name: 'live-test',
   description: 'Send a test announcement.',
-  usage: '!live-test ___'
+  usage: 'live-test ___'
 };

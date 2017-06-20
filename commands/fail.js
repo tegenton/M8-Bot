@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'fail',
   description: 'For when someone seriously fails.',
-  usage: '!fail'
+  usage: 'fail'
 };

@@ -27,5 +27,5 @@ exports.conf = {
 exports.help = {
   name: 'm8bug',
   description: 'Returns a link to report bugs.',
-  usage: '!m8bug'
+  usage: 'm8bug'
 };

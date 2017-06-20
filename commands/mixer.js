@@ -39,5 +39,5 @@ exports.conf = {
 exports.help = {
   name: 'mixer',
   description: 'Gets info about a mixer user.',
-  usage: '!mixer ___'
+  usage: 'mixer ___'
 };

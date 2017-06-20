@@ -19,5 +19,5 @@ exports.conf = {
 exports.help = {
   name: 'tank',
   description: 'GTFO of my way I got a fucking tank!',
-  usage: '!tank'
+  usage: 'tank'
 };

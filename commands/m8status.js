@@ -43,5 +43,5 @@ exports.conf = {
 exports.help = {
   name: 'm8status',
   description: 'Gets a status report on the bot.',
-  usage: '!m8status'
+  usage: 'm8status'
 };

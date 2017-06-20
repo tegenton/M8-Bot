@@ -28,5 +28,5 @@ exports.conf = {
 exports.help = {
   name: 'urban',
   description: 'Get the urban definition of a word.',
-  usage: '!urban ___'
+  usage: 'urban ___'
 };

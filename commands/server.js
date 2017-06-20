@@ -39,5 +39,5 @@ exports.conf = {
 exports.help = {
   name: 'server',
   description: 'Get info about the current discord server.',
-  usage: '!server'
+  usage: 'server'
 };
