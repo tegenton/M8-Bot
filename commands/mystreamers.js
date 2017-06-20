@@ -12,7 +12,7 @@ exports.run = (client, message) => {
     var fileCount = files.length
     var myStreamers = "Current Streamer List:\n"
     for (i = 0; i < fileCount; i++) {
-      var serverList = fs.readFileSync("./users/" + files[i])
+      var serverList = fs.readFileSync(userDir + files[i])
       if (serverList.includes(chatID)) {
         var name = files[i].replace(".txt", "")
         var myStreamers = myStreamers + name + "\n"
