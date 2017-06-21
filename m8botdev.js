@@ -1,4 +1,4 @@
-var version = "2.3.2"
+var version = "2.3.3"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.gg/JBrAVYD"
@@ -197,5 +197,8 @@ client.on("guildDelete", guild => {
 
 });
 
+process.on('unhandledRejection', error => {
+  console.error(`Uncaught Promise Error: \n${error.stack}`);
+});
 
 client.login(settings.token);
