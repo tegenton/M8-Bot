@@ -55,9 +55,9 @@ exports.run = (client, message) => {
           if (!shareMessage.includes("%USER%")) {
             var tweetMessage = shareMessage;
           }
-          tweetClient.post('statuses/update', {
-            status: tweetMessage
-          })
+          // tweetClient.post('statuses/update', {
+          //   status: tweetMessage
+          // })
         }
       });
     }

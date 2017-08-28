@@ -72,7 +72,7 @@ exports.run = (client, message) => {
 
 exports.conf = {
   enabled: true,
-  guildOnly: true,
+  guildOnly: false,
   aliases: ['addstreamer'],
   permLevel: 0
 };

@@ -16,7 +16,7 @@ exports.run = (client, message) => {
       .addField("Server ID", message.guild.id, true)
       .addField("Region", message.guild.region, true)
       .addField("Owner", message.guild.owner, true)
-      .addField("Members", message.guild.memberCount, true)
+      .addField("Member Count", `${message.guild.memberCount - message.guild.members.filter(m=>m.user.bot).size} (${message.guild.members.filter(m=>m.user.bot).size} bots)`, true)
       .addField("Roles", message.guild.roles.size, true)
       .addField("Channels", message.guild.channels.size, true)
       .addField("Created At", message.guild.createdAt)

@@ -6,7 +6,8 @@ exports.run = (client, message) => {
   var fs = require("fs");
 
   if ((message.content.startsWith("!live") && message.author.id == "278706902727131136") || //if the bot sends the message
-    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "278697660133801984")) { //if comixs sends the message (and in certian chat)
+    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "278697660133801984") || //if comixs sends the message (and in certian chat)
+    (message.content.startsWith("!live") && message.author.id == "161556067954720768" && message.channel.id == "278697660133801984")) { //if evil sends the message (and in certian chat)
     let args = message.content.split(" ").slice(1); //seperate command into args
     let mixer = args[0]; //mixer name is arg 0
     if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
