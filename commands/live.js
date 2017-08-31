@@ -45,7 +45,9 @@ exports.run = (client, message) => {
           var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+            if (client.channels.map(c => c.id).includes(serversAllowed[i])){
             client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+            }
           }
 
           var shareMessage = mixerInfo.preferences.sharetext.replace("%URL%", "http://mixer.com/" + mixerInfo.token)

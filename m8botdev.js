@@ -1,4 +1,4 @@
-var version = "2.4"
+var version = "3.0"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.gg/JBrAVYD"
@@ -27,6 +27,7 @@ const log = message => {
 client.on('ready', () => {
   //client.user.setGame(`${settings.prefix}help | ${client.guilds.size} Servers`);
   client.user.setGame(`Version ${version}`)
+
 });
 
 client.on('message', message => {
