@@ -37,7 +37,8 @@ exports.run = (client, message) => {
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
             if (client.channels.map(c => c.id).includes(serversAllowed[i])){
-              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + "."); //send the live test message to servers            }
+            client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + "."); //send the live message to servers
+            }
           }
         }
       });
