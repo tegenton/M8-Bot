@@ -1,4 +1,4 @@
-var version = "3.1.2"
+var version = "3.1"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.gg/JBrAVYD"
@@ -25,8 +25,9 @@ const log = message => {
 };
 
 client.on('ready', () => {
-  //client.user.setGame(`${settings.prefix}help | ${client.guilds.size} Servers`);
-  client.user.setGame(`Version ${version}`)
+  client.user.setGame(`${settings.prefix}help | m8bot.js.org`);
+  //client.user.setGame(`Version ${version}`)
+
 });
 
 client.on('message', message => {
@@ -163,11 +164,8 @@ client.on("guildMemberAdd", member => {
     //client.channels.get(guildGeneral).sendMessage("Hey " + member.displayName + ", welcome to the **Chill Spot**! You are now a Lil Meme. Please read #welcome and enjoy your stay!");
     //client.channels.get(guildGeneral).send("Hey " + member.name)
   }
-  if (guildID == "169960109072449536") { //Buttercup Guild ID
+  if (guildID == "169960109072449536") { //Innovative Studios Guild ID
     member.addRole(guild.roles.find('name', 'Citizens of Townsville'));
-  }
-  if (guildID == "352984490693623829") { //M8 Bot Guild ID
-    member.addRole(guild.roles.find('name', 'Member'));
   }
 });
 
@@ -183,7 +181,7 @@ client.on("guildCreate", guild => {
     .setThumbnail(guild.iconURL)
     .addField("Members", guild.memberCount, true)
     .addField("Owner", guild.owner, true)
-  client.channels.get("316741092554833931").sendEmbed(joinedEmbed)
+  client.channels.get("352990232624496641").sendEmbed(joinedEmbed)
 
 });
 
@@ -196,7 +194,7 @@ client.on("guildDelete", guild => {
     .setThumbnail(guild.iconURL)
     .addField("Members", guild.memberCount, true)
     .addField("Owner", guild.owner, true)
-  client.channels.get("316741092554833931").sendEmbed(leftEmbed)
+  client.channels.get("352990232624496641").sendEmbed(leftEmbed)
 
 });
 

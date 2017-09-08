@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   message.delete();
-  message.channel.send(`${message.author.toString()} | You can invite me to your server by visiting http://invitem8.comixsyt.space`);
+  message.channel.send(`${message.author.toString()} | You can invite me to your server by visiting <http://invitem8.comixsyt.space>`);
 };
 
 exports.conf = {
