@@ -1,4 +1,4 @@
-var version = "4.4.1"
+var version = "5.0"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -117,6 +117,7 @@ const ca = new Carina({
   isBot: true
 }).open();
 
+//Start Mixer
 var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");;
 var streamerCount = streamers.length;
 
@@ -130,7 +131,7 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
     if (!error && response.statusCode == 200) { //if there is no error checking
       var mixerInfo = JSON.parse(body); //setting a var for the JSON info
       const mixerID = mixerInfo.id; //getting the ID of the streamer
-      console.log("Now stalking " + mixerInfo.token + " on mixer!"); //logs that the bot is watching for the streamer to go live
+      console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
       ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
         var mixerStatus = data.online //checks if they are online (its a double check just incase the above line miss fires)
         if (mixerStatus == true) { //if the bam info JSON says they are live
@@ -139,7 +140,7 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
           var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
           //console.log(timeDiff);
           if (timeDiff >= halfHour) { //if its been 30min or more
-            console.log(mixerInfo.token + " went live, as its been more than 30min!"); //log that they went live
+            console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
             const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
             hook.sendMessage("!live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
           }
@@ -152,6 +153,57 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
     }
   });
 }
+//End Mixer
+
+//Start Twitch
+var streamersTwitch = fs.readFileSync("./streamersTwitch.txt", "utf-8").split(", ");
+var streamerCountTwitch = streamersTwitch.length;
+
+for (t = 0; t < streamersTwitch.length; t++) {
+  var bootTime = (new Date).getTime(); //get the time the bot booted up
+  var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
+  fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
+  console.log(chalk.rgb(148, 0, 211)("Now stalking " + streamersTwitch[t] + " on Twitch!"))
+}
+
+function twitchCheck() {
+  console.log("Checking Twitch!")
+  for (tc = 0; tc < streamersTwitch.length; tc++) {
+    var liveTime = (new Date).getTime();
+    var lastLiveTime = fs.readFileSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "utf-8");
+    var timeDiff = liveTime - lastLiveTime;
+    if (timeDiff >= halfHour) { //if its been 30min or more
+      var request = require("request"); //the var to request details on the streamer
+      request("https://api.twitch.tv/kraken/streams/" + streamersTwitch[tc] + "?client_id=" + settings.twitch_id, function(error, response, body) {
+        if (!error && response.statusCode == 200) { //if there is no error
+          var twitchInfo = JSON.parse(body);
+          if (twitchInfo.stream == null) {
+            //console.log(twitchInfo._links.self.replace("https://api.twitch.tv/kraken/streams/", "") + " is not live!")
+            //console.log(twitchInfo)
+          } else {
+            var liveTime = (new Date).getTime();
+            console.log(chalk.rgb(148, 0, 211)(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
+            fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+            const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
+            hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
+            //console.log(twitchInfo)
+
+          }
+        }
+      });
+    }
+    if (timeDiff < halfHour) { //if its been less than 30min
+    }
+  }
+}
+const delay = require('delay');
+delay(60000).then(() => {
+  twitchCheck()
+})
+
+setInterval(twitchCheck, 120000); //run the check every 2min
+
+//End Twitch
 
 client.on("guildMemberAdd", member => {
   let guild = member.guild;

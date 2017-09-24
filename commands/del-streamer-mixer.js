@@ -52,12 +52,12 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ['delstreamer','remove-streamer'],
+  aliases: ['delstreamermixer','remove-streamer-mixer'],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'del-streamer',
+  name: 'del-streamer-mixer',
   description: 'Used to remove a Mixer streamer from that chat. Must be done by server owner or admin.',
-  usage: 'del-streamer ___'
+  usage: 'del-streamer-mixer ___'
 };

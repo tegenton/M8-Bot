@@ -4,10 +4,11 @@ exports.run = (client, message) => {
   var rootDir = __dirname.replace("commands", "")
   var timeDir = __dirname.replace("commands", "user_time")
   var fs = require("fs");
+  const settings = require(rootDir + '/settings.json');
 
-  if ((message.content.startsWith("!live") && message.author.id == "278706902727131136") || //if the bot sends the message
-    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "278697660133801984") || //if comixs sends the message (and in certian chat)
-    (message.content.startsWith("!live") && message.author.id == "161556067954720768" && message.channel.id == "278697660133801984")) { //if evil sends the message (and in certian chat)
+  if ((message.content.startsWith(settings.prefix + "live-test") && message.author.id == "278706902727131136") || //if the bot sends the message
+    (message.content.startsWith(settings.prefix + "live-test") && message.author.id == "145367010489008128" && message.channel.id == "278697660133801984") || //if comixs sends the message (and in certian chat)
+    (message.content.startsWith(settings.prefix + "live-test") && message.author.id == "161556067954720768" && message.channel.id == "278697660133801984")) { //if evil sends the message (and in certian chat)
     let args = message.content.split(" ").slice(1); //seperate command into args
     let mixer = args[0]; //mixer name is arg 0
     if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record

@@ -73,12 +73,12 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['addstreamer'],
+  aliases: ['addstreamermixer'],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'add-streamer',
+  name: 'add-streamer-mixer',
   description: 'Used to add a Mixer streamer to that chat. Must be done by server owner or admin.',
-  usage: 'add-streamer ___'
+  usage: 'add-streamer-mixer  ___'
 };

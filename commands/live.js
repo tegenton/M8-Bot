@@ -6,13 +6,7 @@ exports.run = (client, message) => {
   var timeDir = __dirname.replace("commands", "user_time")
   var sourceFile = require('../m8botdev.js');
   const settings = require(rootDir + '/settings.json');
-  var Twitter = require('twitter');
-  var tweetClient = new Twitter({
-    consumer_key: settings.consumer_key,
-    consumer_secret: settings.consumer_secret,
-    access_token_key: settings.access_token_key,
-    access_token_secret: settings.access_token_secret
-  });
+
 
 
   if ((message.content.startsWith(settings.prefix + "live") && message.author.id == "278697796398481408") || //if the bot sends the message
@@ -73,17 +67,6 @@ exports.run = (client, message) => {
 
 
           }
-
-          var shareMessage = mixerInfo.preferences.sharetext.replace("%URL%", "http://mixer.com/" + mixerInfo.token)
-          if (shareMessage.includes("%USER%")) {
-            var tweetMessage = shareMessage.replace("%USER%", mixerInfo.token)
-          }
-          if (!shareMessage.includes("%USER%")) {
-            var tweetMessage = shareMessage;
-          }
-          // tweetClient.post('statuses/update', {
-          //   status: tweetMessage
-          // })
         }
       });
     }
