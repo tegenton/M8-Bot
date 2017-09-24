@@ -26,23 +26,38 @@ exports.run = (client, message) => {
           var mixerInfo = JSON.parse(body); //sets mixerInfo to the JSON data
           if (mixerInfo.type == null) { //if there is no game set to the stream
             var game = "[API ERROR]"; //set the game to the meme game
+            const liveEmbed = new Discord.RichEmbed() //start the embed message template
+              .setTitle(mixerInfo.token + "\'s Stream")
+              .setAuthor(mixerInfo.name)
+              .setColor(0x9900FF)
+              .setDescription("Hey guys, " + mixer + " is live right now! Click above to watch!")
+              .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+              .setThumbnail(mixerInfo.user.avatarUrl)
+              .setTimestamp()
+              .setURL("http://mixer.com/" + mixer)
+              .addField("Streaming", game, true)
+              .addField("Followers", mixerInfo.numFollowers, true)
+              .addField("Mixer Level", mixerInfo.user.level, true)
+              .addField("Total Views", mixerInfo.viewersTotal, true)
           } else { //if there is a game set
             var game = mixerInfo.type.name; //set the game var to the streamer's game
+            const liveEmbed = new Discord.RichEmbed() //start the embed message template
+              .setTitle(mixerInfo.token + "\'s Stream")
+              .setAuthor(mixerInfo.name)
+              .setColor(0x9900FF)
+              .setDescription("Hey guys, " + mixer + " is live right now! Click above to watch!")
+              .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+              .setThumbnail(mixerInfo.user.avatarUrl)
+              .setTimestamp()
+              .setURL("http://mixer.com/" + mixer)
+              .addField("Streaming", game, true)
+              .addField("Followers", mixerInfo.numFollowers, true)
+              .addField("Mixer Level", mixerInfo.user.level, true)
+              .addField("Total Views", mixerInfo.viewersTotal, true)
+              .setImage(mixerInfo.type.backgroundUrl) //end the embed message template
           }
-          const liveEmbed = new Discord.RichEmbed() //start the embed message template
-            .setTitle(mixerInfo.token + "\'s Stream")
-            .setAuthor(mixerInfo.name)
-            .setColor(0x9900FF)
-            .setDescription("Hey guys, " + mixer + " is live right now! Click above to watch!")
-            .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
-            .setThumbnail(mixerInfo.user.avatarUrl)
-            .setTimestamp()
-            .setURL("http://mixer.com/" + mixer)
-            .addField("Streaming", game, true)
-            .addField("Followers", mixerInfo.numFollowers, true)
-            .addField("Mixer Level", mixerInfo.user.level, true)
-            .addField("Total Views", mixerInfo.viewersTotal, true)
-            .setImage(mixerInfo.type.backgroundUrl) //end the embed message template
+
+
           var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
