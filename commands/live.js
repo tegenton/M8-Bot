@@ -39,6 +39,12 @@ exports.run = (client, message) => {
               .addField("Followers", mixerInfo.numFollowers, true)
               .addField("Mixer Level", mixerInfo.user.level, true)
               .addField("Total Views", mixerInfo.viewersTotal, true)
+              var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
+              var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
+              for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+                if (client.channels.map(c => c.id).includes(serversAllowed[i])){
+                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+                }
           } else { //if there is a game set
             var game = mixerInfo.type.name; //set the game var to the streamer's game
             const liveEmbed = new Discord.RichEmbed() //start the embed message template
@@ -55,15 +61,16 @@ exports.run = (client, message) => {
               .addField("Mixer Level", mixerInfo.user.level, true)
               .addField("Total Views", mixerInfo.viewersTotal, true)
               .setImage(mixerInfo.type.backgroundUrl) //end the embed message template
+              var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
+              var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
+              for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+                if (client.channels.map(c => c.id).includes(serversAllowed[i])){
+                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+                }
           }
 
 
-          var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
-          var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
-          for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
-            if (client.channels.map(c => c.id).includes(serversAllowed[i])){
-            client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
-            }
+
           }
 
           var shareMessage = mixerInfo.preferences.sharetext.replace("%URL%", "http://mixer.com/" + mixerInfo.token)
