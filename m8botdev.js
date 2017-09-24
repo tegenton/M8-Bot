@@ -1,7 +1,7 @@
-var version = "4.3"
+var version = "4.4"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
-var officialDiscord = "https://discord.gg/JBrAVYD"
+var officialDiscord = "https://discord.me/m8bot"
 var embedColor = 0x9900FF;
 var botLogo = "http://i.imgur.com/nXvRJXM.png";
 
