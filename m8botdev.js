@@ -1,4 +1,4 @@
-var version = "5.0"
+var version = "5.1"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -182,12 +182,15 @@ function twitchCheck() {
             //console.log(twitchInfo)
           } else {
             var liveTime = (new Date).getTime();
-            console.log(chalk.rgb(148, 0, 211)(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
-            fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
-            const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
-            hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
-            //console.log(twitchInfo)
-
+            var streamStartTime = new Date(twitchInfo.stream.created_at)
+            var streamStartMS = streamStartTime.getTime()
+            if (liveTime - streamStartMS < 1800000) {
+              console.log(chalk.rgb(148, 0, 211)(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
+              fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+              const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
+              hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
+              //console.log(twitchInfo)
+            }
           }
         }
       });

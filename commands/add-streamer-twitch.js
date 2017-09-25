@@ -57,12 +57,16 @@ exports.run = (client, message) => {
                 //console.log(twitchInfo._links.self.replace("https://api.twitch.tv/kraken/streams/", "") + " is not live!")
                 //console.log(twitchInfo)
               } else {
+
+
                 var liveTime = (new Date).getTime();
-                console.log(chalk.rgb(148, 0, 211)(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
-                fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
-                const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
-                hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
-                //console.log(twitchInfo)
+                if (liveTime - streamStartMS < 1800000) {
+                  console.log(chalk.rgb(148, 0, 211)(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
+                  fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+                  const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
+                  hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
+                  //console.log(twitchInfo)
+                }
 
               }
             }
