@@ -1,4 +1,4 @@
-var version = "5.1"
+var version = "5.2"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -255,6 +255,14 @@ client.on("guildDelete", guild => {
 
 process.on('unhandledRejection', error => {
   console.error(`Uncaught Promise Error: \n${error.stack}`);
+});
+
+const music = require('discord.js-music-v11');
+music(client, {
+	prefix: settings.prefix,
+	global: false,   // Server-specific queues = false, global queue = true
+	maxQueueSize: 10, // Maximum queue size of 10.
+	clearInvoker: true // If permissions applicable, allow the bot to delete the messages that invoke it (start with prefix)
 });
 
 client.login(settings.token);
