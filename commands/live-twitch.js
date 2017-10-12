@@ -32,8 +32,7 @@ exports.run = (client, message) => {
             .setThumbnail(twitchInfo.logo)
             .setTimestamp()
             .setURL("http://twitch.tv/" + twitch)
-            .addField("Streaming", game, true)
-            .addField('\u200b', '\u200b', true)
+            .addField("Streaming", game)
             .addField("Followers", twitchInfo.followers, true)
             .addField("Total Views", twitchInfo.views, true) //end the embed message template
           var serversAllowedRaw = fs.readFileSync(userDir + "/" + twitch + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
