@@ -21,6 +21,9 @@ exports.run = (client, message) => {
             var game = "[API ERROR]"; //set the game to the meme game
           } else { //if there is a game set
             var game = twitchInfo.game; //set the game var to the streamer's game
+            if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+              var game = "PUBG"
+            }
           }
           const liveEmbed = new Discord.RichEmbed() //start the embed message template
             .setTitle("Test for " + twitchInfo.display_name + "\'s Stream")

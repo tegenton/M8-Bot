@@ -22,6 +22,9 @@ exports.run = (client, message) => {
             var game = "[API ERROR]"; //set the game to the meme game
           } else { //if there is a game set
             var game = twitchInfo.game; //set the game var to the streamer's game
+            if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+              var game = "PUBG"
+            }
           }
           const liveEmbed = new Discord.RichEmbed() //start the embed message template
             .setTitle(twitchInfo.display_name + "\'s Stream")
@@ -38,8 +41,8 @@ exports.run = (client, message) => {
           var serversAllowedRaw = fs.readFileSync(userDir + "/" + twitch + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
-            if (client.channels.map(c => c.id).includes(serversAllowed[i])){
-            client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + twitchInfo.display_name + " is live on Twitch!"); //send the live message to servers
+            if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
+              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + twitchInfo.display_name + " is live on Twitch!"); //send the live message to servers
             }
           }
         }

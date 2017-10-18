@@ -42,6 +42,9 @@ exports.run = (client, message) => {
             }
           } else { //if there is a game set
             var game = mixerInfo.type.name; //set the game var to the streamer's game
+            if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+              var game = "PUBG"
+            }
             const liveEmbed = new Discord.RichEmbed() //start the embed message template
               .setTitle(mixerInfo.token + "\'s Stream")
               .setAuthor(mixerInfo.name)
