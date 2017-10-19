@@ -5,7 +5,7 @@ exports.run = (client, message) => {
   const streamerFolder = userDir;
   const fs = require('fs');
   var chatID = message.channel.id;
-  fs.readdir(streamerFolder, (err, files) => {
+  fs.readdir(userDir, (err, files) => {
     files.forEach(file => {
       var files = file
     });
