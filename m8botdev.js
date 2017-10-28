@@ -1,4 +1,4 @@
-var version = "5.4.1"
+var version = "5.5"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -125,7 +125,7 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
   var halfHour = 1800000; //time in milis that is 30min
   var bootTime = (new Date).getTime(); //get the time the bot booted up
   var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
-  fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
+  // fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
   var request = require("request"); //the var to request details on the streamer
   request("https://mixer.com/api/v1/channels/" + streamers[i], function(error, response, body) { //ste info for the streamer in JSON
     if (!error && response.statusCode == 200) { //if there is no error checking
@@ -162,7 +162,7 @@ var streamerCountTwitch = streamersTwitch.length;
 for (t = 0; t < streamersTwitch.length; t++) {
   var bootTime = (new Date).getTime(); //get the time the bot booted up
   var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
-  fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
+  // fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
   console.log(chalk.rgb(148, 0, 211)("Now stalking " + streamersTwitch[t] + " on Twitch!"))
 }
 

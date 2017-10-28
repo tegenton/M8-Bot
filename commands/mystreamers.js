@@ -1,18 +1,18 @@
 exports.run = (client, message) => {
   message.delete();
-  var userDir = __dirname.replace("commands", "/users/")
+  var userDir = __dirname.replace("commands", "users")
 
   const streamerFolder = userDir;
   const fs = require('fs');
   var chatID = message.channel.id;
-  fs.readdir(userDir, (err, files) => {
+  fs.readdir(streamerFolder, (err, files) => {
     files.forEach(file => {
       var files = file
     });
     var fileCount = files.length
     var myStreamers = "Current Streamer List:\n"
     for (i = 0; i < fileCount; i++) {
-      var serverList = fs.readFileSync(userDir + files[i])
+      var serverList = fs.readFileSync(streamerFolder + "/" + files[i])
       if (serverList.includes(chatID)) {
         var name = files[i].replace(".txt", "")
         var myStreamers = myStreamers + name + "\n"

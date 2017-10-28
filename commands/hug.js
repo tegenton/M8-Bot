@@ -1,6 +1,5 @@
 exports.run = (client, message) => {
   message.delete();
-  message.delete(1000);
   if (message.content.startsWith("!hugs ")) {
     var who = message.content.replace("!hugs ", "")
   }
