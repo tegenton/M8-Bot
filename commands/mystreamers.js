@@ -1,24 +1,44 @@
 exports.run = (client, message) => {
   message.delete();
-  var userDir = __dirname.replace("commands", "users")
+  var userDirMixer = __dirname.replace("commands", "users")
+  var userDirTwitch = __dirname.replace("commands", "users_twitch")
 
-  const streamerFolder = userDir;
+  const streamerFolderMixer = userDirMixer;
+  const streamerFolderTwitch = userDirTwitch;
+
   const fs = require('fs');
   var chatID = message.channel.id;
-  fs.readdir(streamerFolder, (err, files) => {
+  fs.readdir(streamerFolderMixer, (err, files) => {
     files.forEach(file => {
       var files = file
     });
     var fileCount = files.length
-    var myStreamers = "Current Streamer List:\n"
+    var myStreamersMixer = "Current **Mixer** Streamer List:\n"
     for (i = 0; i < fileCount; i++) {
-      var serverList = fs.readFileSync(streamerFolder + "/" + files[i])
+      var serverList = fs.readFileSync(streamerFolderMixer + "/" + files[i])
       if (serverList.includes(chatID)) {
         var name = files[i].replace(".txt", "")
-        var myStreamers = myStreamers + name + "\n"
+        var myStreamersMixer = myStreamersMixer + name + "\n"
       }
     }
-    message.channel.send(myStreamers)
+    message.channel.send(myStreamersMixer)
+  })
+
+
+  fs.readdir(streamerFolderTwitch, (err, files) => {
+    files.forEach(file => {
+      var files = file
+    });
+    var fileCount = files.length
+    var myStreamersTwitch = "Current **Twitch** Streamer List:\n"
+    for (i = 0; i < fileCount; i++) {
+      var serverList = fs.readFileSync(streamerFolderTwitch + "/" + files[i])
+      if (serverList.includes(chatID)) {
+        var name = files[i].replace(".txt", "")
+        var myStreamersTwitch = myStreamersTwitch + name + "\n"
+      }
+    }
+    message.channel.send(myStreamersTwitch)
   })
 };
 
