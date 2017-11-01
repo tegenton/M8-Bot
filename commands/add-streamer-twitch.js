@@ -19,7 +19,7 @@ exports.run = (client, message) => {
   let streamer = args[0].toLowerCase(); //arg 1 is the streamer's name
   var chatID = message.channel.id; //gets the chat ID that they added the streamer to
   var owner = message.guild.ownerID; //gets the server owner's id
-  if (owner == message.author.id || message.author.id == "145367010489008128" || message.member.hasPermission("ADMINISTRATOR")) { //if the person who added the streamer is the owner or ComixsYT or an admin
+  if (owner == message.author.id || message.author.id == "145367010489008128" || message.author.id == "161556067954720768" || message.member.hasPermission("ADMINISTRATOR")) { //if the person who added the streamer is the owner or ComixsYT or an admin
     if (fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are already in our database
       var currentServers = fs.readFileSync(userDir + "/" + streamer + ".txt", "utf-8"); //get the current allowed servers from their file
       var registered = currentServers.includes(chatID); //checks if the server they are being added to already has them
@@ -33,6 +33,7 @@ exports.run = (client, message) => {
     }
     if (!fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are not in our database yet
       fs.writeFile(userDir + "/" + streamer + ".txt", "301435504761765889, " + chatID); //makes a new file with the chat ID
+      message.reply("you have added the streamer " + streamer + " to your server!"); //tells the server owner that the streamer was added
       var currentStreamers = fs.readFileSync(rootDir + "./streamersTwitch.txt", "utf-8"); //gets the current total streamer list
       fs.writeFile(rootDir + "./streamersTwitch.txt", currentStreamers + ", " + streamer); //updates the total list with the new streamer added
       var halfHour = 1800000; //time in milis that is 30min

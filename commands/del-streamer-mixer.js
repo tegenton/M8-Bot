@@ -16,7 +16,7 @@ exports.run = (client, message) => {
   let streamer = args[0]; //arg 0 is the streamer's name
   var chatID = message.channel.id; //gets the chat ID that they added the streamer to
   var owner = message.guild.ownerID; //gets the server owner's id
-  if (owner == message.author.id || message.author.id == "145367010489008128" || message.member.hasPermission("ADMINISTRATOR")) { //if the person is the owner or ComixsYT or an admin
+  if (owner == message.author.id || message.author.id == "145367010489008128" || message.author.id == "161556067954720768" || message.member.hasPermission("ADMINISTRATOR")) { //if the person is the owner or ComixsYT or an admin
     if (!fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are not in our database yet
       message.reply(streamer + " was not removed from your server, as you never added them!")
     }
