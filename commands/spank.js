@@ -1,4 +1,6 @@
 //Requested by DragonWarrior
+var rootDir = __dirname.replace("commands", "")
+
 const settings = require(rootDir + './settings.json');
 
 exports.run = (client, message) => {
