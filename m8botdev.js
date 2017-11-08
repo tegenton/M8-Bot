@@ -1,4 +1,4 @@
-var version = "5.7.2"
+var version = "5.7.3"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -216,11 +216,14 @@ client.on("guildMemberAdd", member => {
   //console.log(guildID);
   if (guildID == "250354580926365697") { //Meme M8s Guild ID
     member.addRole(guild.roles.find('name', 'Lil Meme'));
-    //client.channels.get(guildGeneral).sendMessage("Hey " + member.displayName + ", welcome to the **Chill Spot**! You are now a Lil Meme. Please read #welcome and enjoy your stay!");
     //client.channels.get(guildGeneral).send("Hey " + member.name)
   }
-  if (guildID == "169960109072449536") { //Innovative Studios Guild ID
+  if (guildID == "169960109072449536") { //Buttercup_'s Guild ID
     member.addRole(guild.roles.find('name', 'Citizens of Townsville'));
+  }
+  if (guildID == "352984490693623829") { //M8 Bot Server Guild ID
+    member.addRole(guild.roles.find('name', 'Member'));
+    client.channels.get(guildGeneral).send("Hey " + member.name + "! Welcome to the official M8 Bot server! Please read #welcome and if you need any help, ask in #support!")
   }
 });
 
