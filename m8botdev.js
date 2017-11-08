@@ -1,4 +1,4 @@
-var version = "5.7.4"
+var version = "5.7.5"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -211,11 +211,12 @@ setInterval(twitchCheck, 120000); //run the check every 2min
 client.on("guildMemberAdd", member => {
   let guild = member.guild;
   var guildID = member.guild.id;
-  var guildGeneral = member.guild.defaultChannel.id;
+  //var guildGeneral = member.guild.defaultChannel.id;
   //console.log(guildGeneral);
   //console.log(guildID);
   if (guildID == "250354580926365697") { //Meme M8s Guild ID
     member.addRole(guild.roles.find('name', 'Lil Meme'));
+    //client.channels.get(guildGeneral).sendMessage("Hey " + member.displayName + ", welcome to the **Chill Spot**! You are now a Lil Meme. Please read #welcome and enjoy your stay!");
     //client.channels.get(guildGeneral).send("Hey " + member.name)
   }
   if (guildID == "169960109072449536") { //Buttercup_'s Guild ID
