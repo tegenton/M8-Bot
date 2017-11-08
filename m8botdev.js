@@ -1,4 +1,4 @@
-var version = "5.7.3"
+var version = "5.7.4"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -223,7 +223,7 @@ client.on("guildMemberAdd", member => {
   }
   if (guildID == "352984490693623829") { //M8 Bot Server Guild ID
     member.addRole(guild.roles.find('name', 'Member'));
-    client.channels.get(guildGeneral).send("Hey " + member.name + "! Welcome to the official M8 Bot server! Please read #welcome and if you need any help, ask in #support!")
+    //client.channels.get(guildGeneral).send("Hey " + member.name + "! Welcome to the official M8 Bot server! Please read #welcome and if you need any help, ask in #support!")
   }
 });
 
