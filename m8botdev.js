@@ -1,4 +1,4 @@
-var version = "5.7.5"
+var version = "5.8"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -228,7 +228,16 @@ client.on("guildMemberAdd", member => {
   }
 });
 
+const superagent = require('superagent')
+
 client.on("guildCreate", guild => {
+  superagent.post(`https://discordbots.org/api/bots/stats`)
+    .set('Authorization', settings.discordbots_org)
+    .send({
+      server_count: client.guilds && client.guilds.size ? client.guilds.size : (client.Guilds ? client.Guilds.size : Object.keys(client.Servers).length)
+    })
+    .then(() => console.log('Updated discordbots.org stats'))
+    .catch(err => console.error(`Error updating discordbots.org stats: ${err.body || err}`));
   console.log("I just joined a new server called " + guild.name)
   guild.defaultChannel.send("Hey guys and gals! I\'m M8 Bot! Its great to meet you all, and I hope you enjoy me :P\nA list of my commands can be found by using \"!help m8bot\".\nIf you encounter any issues, you can type \"!m8bug\" to recive links to submit issues!")
 
@@ -242,9 +251,17 @@ client.on("guildCreate", guild => {
     .addField("Owner", guild.owner, true)
   client.channels.get("352990232624496641").sendEmbed(joinedEmbed)
 
+
 });
 
 client.on("guildDelete", guild => {
+  superagent.post(`https://discordbots.org/api/bots/stats`)
+    .set('Authorization', settings.discordbots_org)
+    .send({
+      server_count: client.guilds && client.guilds.size ? client.guilds.size : (client.Guilds ? client.Guilds.size : Object.keys(client.Servers).length)
+    })
+    .then(() => console.log('Updated discordbots.org stats'))
+    .catch(err => console.error(`Error updating discordbots.org stats: ${err.body || err}`));
   const leftEmbed = new Discord.RichEmbed()
     .setColor(0xFF0000)
     .setTitle("Left " + guild.name)
