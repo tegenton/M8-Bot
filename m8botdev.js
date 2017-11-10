@@ -163,11 +163,11 @@ for (t = 0; t < streamersTwitch.length; t++) {
   var bootTime = (new Date).getTime(); //get the time the bot booted up
   var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
   // fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
-  console.log("Now stalking " + streamersTwitch[t] + " on Twitch!")
+  console.log(chalk.magenta("Now stalking " + streamersTwitch[t] + " on Twitch!"))
 }
 
 function twitchCheck() {
-  console.log("Checking Twitch!")
+  console.log(chalk.magenta("Checking Twitch!"))
   for (tc = 0; tc < streamersTwitch.length; tc++) {
     var liveTime = (new Date).getTime();
     var lastLiveTime = fs.readFileSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "utf-8");
@@ -185,7 +185,7 @@ function twitchCheck() {
             var streamStartTime = new Date(twitchInfo.stream.created_at)
             var streamStartMS = streamStartTime.getTime()
             if (liveTime - streamStartMS < 1800000) {
-              console.log(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!");
+              console.log(chalk.magenta(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
               fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
