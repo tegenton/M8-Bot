@@ -131,7 +131,7 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
     if (!error && response.statusCode == 200) { //if there is no error checking
       var mixerInfo = JSON.parse(body); //setting a var for the JSON info
       const mixerID = mixerInfo.id; //getting the ID of the streamer
-      console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+      console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!"); //logs that the bot is watching for the streamer to go live
       ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
         var mixerStatus = data.online //checks if they are online (its a double check just incase the above line miss fires)
         if (mixerStatus == true) { //if the bam info JSON says they are live
@@ -163,7 +163,7 @@ for (t = 0; t < streamersTwitch.length; t++) {
   var bootTime = (new Date).getTime(); //get the time the bot booted up
   var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
   // fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
-  console.log("Now stalking " + streamersTwitch[t] + " on Twitch!"))
+  console.log("Now stalking " + streamersTwitch[t] + " on Twitch!")
 }
 
 function twitchCheck() {
