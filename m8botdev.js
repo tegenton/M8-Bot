@@ -238,7 +238,7 @@ client.on("guildCreate", guild => {
       server_count: client.guilds.size
     })
     .then(() => console.log('Updated dbots.org status.')).catch((e) => e);
-  guild.defaultChannel.send("Hey guys and gals! I\'m M8 Bot! Its great to meet you all, and I hope you enjoy me :P\nA list of my commands can be found by using \"!help m8bot\".\nIf you encounter any issues, you can type \"!m8bug\" to recive links to submit issues!")
+  guild.channels.first().send("Hey guys and gals! I\'m M8 Bot! Its great to meet you all, and I hope you enjoy me :P\nA list of my commands can be found by using \"!help m8bot\".\nIf you encounter any issues, you can type \"!m8bug\" to recive links to submit issues!")
 
   const joinedEmbed = new Discord.RichEmbed()
     .setColor(0x00FF00)
