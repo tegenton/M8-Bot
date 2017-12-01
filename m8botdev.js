@@ -1,4 +1,4 @@
-var version = "6.0"
+var version = "5.8.1"
 var website = "https://m8bot.js.org/";
 var botTwitter = "https://twitter.com/M8_Bot"
 var officialDiscord = "https://discord.me/m8bot"
@@ -270,38 +270,6 @@ client.on("guildDelete", guild => {
   client.channels.get("352990232624496641").sendEmbed(leftEmbed)
 
 });
-
-const streamerFolderMixer = "./users";
-const streamerFolderTwitch = "./users_twitch";
-
-fs.readdir(streamerFolderMixer, (err, files) => {
-  files.forEach(file => {
-    var files = file
-  });
-  var fileCount = files.length
-  //var myStreamersMixer = "Current **Mixer** Streamer List:\n"
-  var allMixer = "";
-  for (i = 0; i < fileCount; i++) {
-    var name = files[i].replace(".txt", ", ")
-    var allMixer = allMixer + name;
-  }
-  //console.log(allMixer)
-  fs.writeFile("./streamers.txt", allMixer)
-})
-
-fs.readdir(streamerFolderTwitch, (err, files) => {
-  files.forEach(file => {
-    var files = file
-  });
-  var fileCount = files.length
-  var allTwitch = "";
-  for (i = 0; i < fileCount; i++) {
-    var name = files[i].replace(".txt", ", ")
-    var allTwitch = allTwitch + name;
-  }
-  //console.log(allMixer)
-  fs.writeFile("./streamersTwitch.txt", allTwitch)
-})
 
 process.on('unhandledRejection', error => {
   console.error(`Uncaught Promise Error: \n${error.stack}`);
