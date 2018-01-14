@@ -1,16 +1,13 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
-  var userDir = __dirname.replace("commands", "users")
-  var rootDir = __dirname.replace("commands", "")
-  var timeDir = __dirname.replace("commands", "user_time")
+  var userDir = __dirname.replace("commands", "users");
   var fs = require("fs");
-  const settings = require(rootDir + '/settings.json');
 
-  if ((message.content.startsWith(settings.prefix + "live-test") && message.author.id == "278706902727131136") || //if the bot sends the message
-    (message.content.startsWith(settings.prefix + "live-test") && message.author.id == "145367010489008128" && message.channel.id == "278697660133801984") || //if comixs sends the message (and in certian chat)
-    (message.content.startsWith(settings.prefix + "live-test") && message.author.id == "161556067954720768" && message.channel.id == "278697660133801984")) { //if evil sends the message (and in certian chat)
-    let args = message.content.split(" ").slice(1); //seperate command into args
-    let mixer = args[0]; //mixer name is arg 0
+  if ((message.content.startsWith("!live-test") && message.author.id == "401967977228009473") || //if the bot sends the message
+    (message.content.startsWith("!live-test") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384") || //if comixs sends the message (and in certian chat)
+    (message.content.startsWith("!live-test") && message.author.id == "161556067954720768" && message.channel.id == "401967908739088384")) { //if evil sends the message (and in certian chat)
+    const args = message.content.split(" ").slice(1); //seperate command into args
+    const mixer = args[0]; //mixer name is arg 0
     if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
       var request = require("request"); //sets a var to request info
       request("https://mixer.com/api/v1/channels/" + mixer, function(error, response, body) { //request streamer's in in JSON form
@@ -30,7 +27,7 @@ exports.run = (client, message) => {
               .addField("Streaming", game, true)
               .addField("Followers", mixerInfo.numFollowers, true)
               .addField("Mixer Level", mixerInfo.user.level, true)
-              .addField("Total Views", mixerInfo.viewersTotal, true) //end the embed message template
+              .addField("Total Views", mixerInfo.viewersTotal, true); //end the embed message template
             var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
             var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
             for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
@@ -56,7 +53,7 @@ exports.run = (client, message) => {
               .addField("Followers", mixerInfo.numFollowers, true)
               .addField("Mixer Level", mixerInfo.user.level, true)
               .addField("Total Views", mixerInfo.viewersTotal, true)
-              .setImage(mixerInfo.type.backgroundUrl) //end the embed message template
+              .setImage(mixerInfo.type.backgroundUrl); //end the embed message template
             var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
             var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
             for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
@@ -79,7 +76,7 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'live-test',
-  description: 'Send a test announcement.',
-  usage: 'live-test ___'
+  name: "live-test",
+  description: "Send a test announcement.",
+  usage: "live-test ___"
 };

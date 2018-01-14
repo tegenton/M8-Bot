@@ -1,4 +1,4 @@
-var sourceFile = require('../m8botdev.js');
+var settings = require('../config.js');
 const Discord = require('discord.js');
 
 exports.run = (client, message) => {
@@ -9,9 +9,9 @@ exports.run = (client, message) => {
     .setDescription("I am so sorry that you are having an issue with me!\nThere are a few ways to submit issues.")
     .addField("Github", "https://goo.gl/DVEsVs", true)
     .addField("Twitter", "https://goo.gl/kG3kRR", true)
-    .addField("My Discord", sourceFile.officialDiscord, true)
-    .setThumbnail(sourceFile.botLogo)
-    .setFooter("Sent via M8 Bot", sourceFile.botLogo)
+    .addField("My Discord", settings.officialDiscord, true)
+    .setThumbnail(settings.botLogo)
+    .setFooter("Sent via M8 Bot", settings.botLogo)
     .setTimestamp()
   message.channel.send({
     embed: bugEmbed

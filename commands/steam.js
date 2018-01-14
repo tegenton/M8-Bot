@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-const settings = require('../settings.json');
 var request = require("request");
 
 exports.run = (client, message) => {
   message.delete();
+  const settings = client.settings.get(message.guild.id);
   var search = message.content.replace(settings.prefix + "steam ", "")
   //search link = http://store.steampowered.com/api/storesearch/?term={TERM HERE}&l=english&cc=US
   request("http://store.steampowered.com/api/storesearch/?term={" + search + "}&l=english&cc=US", function(error, response, body) {

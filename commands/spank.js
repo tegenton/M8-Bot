@@ -1,11 +1,11 @@
 //Requested by DragonWarrior
-var rootDir = __dirname.replace("commands", "")
 
-const settings = require(rootDir + './settings.json');
 
 exports.run = (client, message) => {
   message.delete();
-    var who = message.content.replace(settings.prefix + "spank ", "")
+  const settings = client.settings.get(message.guild.id);
+
+  var who = message.content.replace(settings.prefix + "spank ", "")
 
   message.channel.send(message.author + " spanked " + who + " with a spiked paddle!");
 };

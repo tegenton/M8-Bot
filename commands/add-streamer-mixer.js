@@ -1,20 +1,20 @@
 exports.run = (client, message) => {
-  const Discord = require('discord.js');
+  const Discord = require("discord.js");
   var fs = require("fs");
-  const Carina = require('carina').Carina;
-  const ws = require('ws');
+  const Carina = require("carina").Carina;
+  const ws = require("ws");
 
   Carina.WebSocket = ws;
   const ca = new Carina({
     isBot: true
   }).open();
-  var userDir = __dirname.replace("commands", "users")
-  var rootDir = __dirname.replace("commands", "")
-  var timeDir = __dirname.replace("commands", "user_time")
+  var userDir = __dirname.replace("commands", "users");
+  var rootDir = __dirname.replace("commands", "");
+  var timeDir = __dirname.replace("commands", "user_time");
   message.delete();
   //if an owner adds a streamer
-  let args = message.content.split(" ").slice(1); //divide the message into args
-  let streamer = args[0]; //arg 0 is the streamer's name
+  const args = message.content.split(" ").slice(1); //divide the message into args
+  const streamer = args[0]; //arg 0 is the streamer's name
   var chatID = message.channel.id; //gets the chat ID that they added the streamer to
   var owner = message.guild.ownerID; //gets the server owner's id
   if (owner == message.author.id || message.author.id == "145367010489008128" || message.author.id == "161556067954720768" || message.member.hasPermission("ADMINISTRATOR")) { //if the person who added the streamer is the owner or ComixsYT or an admin
@@ -45,7 +45,7 @@ exports.run = (client, message) => {
           const mixerID = mixerInfo.id; //getting the ID of the streamer
           console.log("Now stalking " + mixerInfo.token + " on mixer!"); //logs that the bot is watching for the streamer to go live
           ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
-            var mixerStatus = data.online //checks if they are online (its a double check just incase the above line miss fires)
+            var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
             if (mixerStatus == true) { //if the bam info JSON says they are live
               var liveTime = (new Date).getTime(); //time the bot sees they went live
               var lastLiveTime = fs.readFileSync(timeDir + "/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
@@ -61,7 +61,7 @@ exports.run = (client, message) => {
               }
               fs.writeFile(timeDir + "/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
             }
-          })
+          });
         }
       });
     }
@@ -74,12 +74,12 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['addstreamermixer'],
+  aliases: ["addstreamermixer"],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'add-streamer-mixer',
-  description: 'Used to add a Mixer streamer to that chat. Must be done by server owner or admin.',
-  usage: 'add-streamer-mixer  ___'
+  name: "add-streamer-mixer",
+  description: "Used to add a Mixer streamer to that chat. Must be done by server owner or admin.",
+  usage: "add-streamer-mixer  ___"
 };

@@ -4,7 +4,7 @@ exports.run = (client, message) => {
     message.channel.overwritePermissions("278362996349075456", {
       "MENTION_EVERYONE": true,
     })
-    message.reply("the @-here ping has been enabled in this channel.")
+    message.reply("the `@here` ping has been enabled in this channel.")
   } else {
     message.reply("you do not have permission to run this command!")
   }

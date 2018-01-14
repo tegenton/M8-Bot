@@ -1,10 +1,12 @@
 exports.run = (client, message) => {
   message.delete();
-  if (message.content.startsWith("!hugs ")) {
-    var who = message.content.replace("!hugs ", "")
+  const settings = client.settings.get(message.guild.id);
+
+  if (message.content.startsWith(settings.prefix + "hugs ")) {
+    var who = message.content.replace(settings.prefix + "hugs ", "")
   }
-  if (message.content.startsWith("!hug ")) {
-    var who = message.content.replace("!hug ", "")
+  if (message.content.startsWith(settings.prefix + "hug ")) {
+    var who = message.content.replace(settings.prefix + "hug ", "")
   }
   message.channel.send(message.author + " gave " + who + " a nice, big, hug!");
 };

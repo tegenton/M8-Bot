@@ -1,22 +1,22 @@
 exports.run = (client, message) => {
-  const Discord = require('discord.js');
+  const Discord = require("discord.js");
   var fs = require("fs");
   // const Carina = require('carina').Carina;
-  const ws = require('ws');
+  const ws = require("ws");
 
 
 
-  var userDir = __dirname.replace("commands", "users_twitch")
-  var rootDir = __dirname.replace("commands", "")
-  var timeDir = __dirname.replace("commands", "user_time_twitch")
-  const settings = require(rootDir + './settings.json');
-  const chalk = require('chalk');
+  var userDir = __dirname.replace("commands", "users_twitch");
+  var rootDir = __dirname.replace("commands", "");
+  var timeDir = __dirname.replace("commands", "user_time_twitch");
+  const settings = require(rootDir + "./config.js");
+  const chalk = require("chalk");
 
 
   message.delete();
   //if an owner adds a streamer
-  let args = message.content.split(" ").slice(1); //divide the message into args
-  let streamer = args[0].toLowerCase(); //arg 1 is the streamer's name
+  const args = message.content.split(" ").slice(1); //divide the message into args
+  const streamer = args[0].toLowerCase(); //arg 1 is the streamer's name
   var chatID = message.channel.id; //gets the chat ID that they added the streamer to
   var owner = message.guild.ownerID; //gets the server owner's id
   if (owner == message.author.id || message.author.id == "145367010489008128" || message.author.id == "161556067954720768" || message.member.hasPermission("ADMINISTRATOR")) { //if the person who added the streamer is the owner or ComixsYT or an admin
@@ -42,10 +42,10 @@ exports.run = (client, message) => {
       fs.writeFile(timeDir + "/" + streamer + "_time.txt", halfHourAgo);
       var request = require("request"); //the var to request details on the streamer
 
-      console.log(chalk.rgb(148, 0, 211)("Now stalking " + streamer + " on Twitch!"))
+      console.log(chalk.rgb(148, 0, 211)("Now stalking " + streamer + " on Twitch!"));
 
       function twitchCheck() {
-        console.log("Checking Twitch!")
+        console.log("Checking Twitch!");
         var liveTime = (new Date).getTime();
         var lastLiveTime = fs.readFileSync("./user_time_twitch/" + streamer + "_time.txt", "utf-8");
         var timeDiff = liveTime - lastLiveTime;
@@ -77,10 +77,10 @@ exports.run = (client, message) => {
         }
 
       }
-      const delay = require('delay');
+      const delay = require("delay");
       delay(60000).then(() => {
-        twitchCheck()
-      })
+        twitchCheck();
+      });
 
       setInterval(twitchCheck, 120000); //run the check every 2min
 
@@ -95,12 +95,12 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['addstreamertwitch'],
+  aliases: ["addstreamertwitch"],
   permLevel: 0
 };
 
 exports.help = {
-  name: 'add-streamer-twitch',
-  description: 'Used to add a Twitch streamer to that chat. Must be done by server owner or admin.',
-  usage: 'add-streamer-twitch  ___'
+  name: "add-streamer-twitch",
+  description: "Used to add a Twitch streamer to that chat. Must be done by server owner or admin.",
+  usage: "add-streamer-twitch  ___"
 };
