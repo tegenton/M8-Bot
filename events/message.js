@@ -5,7 +5,7 @@
 module.exports = (client, message) => {
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  if (message.author.bot) return;
+  if (message.author.bot && message.author.id != "401967977228009473") return;
 
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
@@ -56,7 +56,7 @@ module.exports = (client, message) => {
   // To simplify message arguments, the author's level is now put on level (not member so it is supported in DMs)
   // The "level" command module argument will be deprecated in the future.
   message.author.permLevel = level;
-  
+
   message.flags = [];
   while (args[0] && args[0][0] === "-") {
     message.flags.push(args.shift().slice(1));
