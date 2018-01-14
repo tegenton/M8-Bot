@@ -160,6 +160,70 @@ for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
             console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
             const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
             hook.sendMessage("!live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
+
+            const mixer = mixerInfo.token; //mixer name is arg 0
+            if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
+              var request = require("request"); //sets a var to request info
+              request("https://mixer.com/api/v1/channels/" + mixer, function(error, response, body) { //request streamer's in in JSON form
+                if (!error && response.statusCode == 200) { //if there is no error
+                  var mixerInfo = JSON.parse(body); //sets mixerInfo to the JSON data
+                  if (mixerInfo.type == null) { //if there is no game set to the stream
+                    var game = "[API ERROR]"; //set the game to the meme game
+                    const liveEmbed = new Discord.RichEmbed() //start the embed message template
+                      .setTitle(mixerInfo.token + "\'s Stream")
+                      .setAuthor(mixerInfo.name)
+                      .setColor(0x9900FF)
+                      .setDescription("Hey guys, " + mixer + " is live right now! Click above to watch!")
+                      .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+                      .setThumbnail(mixerInfo.user.avatarUrl)
+                      .setTimestamp()
+                      .setURL("http://mixer.com/" + mixer)
+                      .addField("Streaming", game, true)
+                      .addField("Followers", mixerInfo.numFollowers, true)
+                      .addField("Mixer Level", mixerInfo.user.level, true)
+                      .addField("Total Views", mixerInfo.viewersTotal, true);
+                    var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
+                    var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
+                    for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+                      if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
+                        client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+                      }
+                    }
+                  } else { //if there is a game set
+                    var game = mixerInfo.type.name; //set the game var to the streamer's game
+                    // if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
+                    //   var game = "PUBG"
+                    // }
+                    const liveEmbed = new Discord.RichEmbed() //start the embed message template
+                      .setTitle(mixerInfo.token + "\'s Stream")
+                      .setAuthor(mixerInfo.name)
+                      .setColor(0x9900FF)
+                      .setDescription("Hey guys, " + mixer + " is live right now! Click above to watch!")
+                      .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+                      .setThumbnail(mixerInfo.user.avatarUrl)
+                      .setTimestamp()
+                      .setURL("http://mixer.com/" + mixer)
+                      .addField("Streaming", game, true)
+                      .addField("Followers", mixerInfo.numFollowers, true)
+                      .addField("Mixer Level", mixerInfo.user.level, true)
+                      .addField("Total Views", mixerInfo.viewersTotal, true)
+                      .setImage(mixerInfo.type.backgroundUrl); //end the embed message template
+                    var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
+                    var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
+                    for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+                      if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
+                        client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+                      }
+                    }
+
+
+
+                  }
+                }
+              });
+            }
+
+
           }
           if (timeDiff < halfHour) { //if its been less than 30min
             console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min

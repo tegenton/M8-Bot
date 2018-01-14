@@ -269,3 +269,19 @@ user_time_twitch/_time.txt
 
 /node_modules
 config.js
+
+/data/
+
+data/settings/MANIFEST-000203
+
+data/settings/LOG.old
+
+data/settings/LOG
+
+data/settings/CURRENT
+
+data/settings/LOG
+
+*.old
+
+data/settings/MANIFEST-000203
