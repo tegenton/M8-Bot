@@ -29,7 +29,7 @@ exports.run = (client, message) => {
           .setTitle("Test for " + twitchInfo.display_name + "\'s Stream")
           .setAuthor(twitchInfo.status)
           .setColor(0x9900FF)
-          .setDescription("Hey guys this is a test for, " + twitchInfo.display_name + "'s stream. This was requested by either a server owner, or " + twitchInfo.display_name + ".")
+          .setDescription("Hey guys this is a test for, " + twitchInfo.display_name + "'s stream. This was requested by either a support agent or developer.")
           .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
           .setThumbnail(twitchInfo.logo)
           .setTimestamp()
@@ -41,7 +41,7 @@ exports.run = (client, message) => {
         var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
         for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
           if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-            client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + twitch + "'s stream. This was requested by either a server owner, or " + twitch + "."); //send the live message to servers
+            client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + twitch + "'s stream. This was requested by either a support agent or developer."); //send the live message to servers
           }
         }
       }
@@ -62,3 +62,5 @@ exports.help = {
   description: "Send a test announcement.",
   usage: "live-test-twitch ___"
 };
+
+//.setDescription("Hey guys this is a test for, " + twitchInfo.display_name + "'s stream. This was requested by either a server owner, or " + twitchInfo.display_name + ".")

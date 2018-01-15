@@ -30,3 +30,5 @@ exports.help = {
   description: "Gives some useful bot statistics",
   usage: "stats"
 };
+
+//Note: Work on making embed for stats in a test file.

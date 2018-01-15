@@ -33,7 +33,7 @@ exports.run = (client, message) => {
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
             if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + "."); //send the live message to servers
+              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a support agent or developer."); //send the live message to servers
             }
           }
         } else { //if there is a game set
@@ -45,7 +45,7 @@ exports.run = (client, message) => {
             .setTitle("Test for " + mixerInfo.token + "\'s Stream")
             .setAuthor(mixerInfo.name)
             .setColor(0x9900FF)
-            .setDescription("Hey guys this is a test for, " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + ".")
+            .setDescription("Hey guys this is a test for, " + mixer + "'s stream. This was requested by either a support agent or developer.")
             .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
             .setThumbnail(mixerInfo.user.avatarUrl)
             .setTimestamp()
@@ -59,7 +59,7 @@ exports.run = (client, message) => {
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
             if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + "."); //send the live message to servers
+              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "This is a test for " + mixer + "'s stream. This was requested by either a support agent or developer."); //send the live message to servers
             }
           }
         }
@@ -81,3 +81,5 @@ exports.help = {
   description: "Send a test announcement.",
   usage: "live-test ___"
 };
+
+//.setDescription("Hey guys this is a test for, " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + ".")
