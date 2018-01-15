@@ -20,7 +20,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ['all-streamers'],
-  permLevel: 0
+  permLevel: "Bot Support"
 };
 
 exports.help = {
