@@ -1,4 +1,4 @@
-var version = "7.4.3";
+var version = "7.5";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -82,7 +82,7 @@ const init = async () => {
   }
 
   client.on("ready", () => {
-    client.user.setGame(`v${version} | m8bot.js.org`);
+    client.user.setActivity(`v${version} | m8bot.js.org`);
     //client.user.setGame(`Version ${version}`)
 
   });
