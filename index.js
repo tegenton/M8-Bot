@@ -1,4 +1,4 @@
-var version = "7.6.1";
+var version = "7.6.2";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -142,6 +142,7 @@ const ca = new Carina({
 }).open();
 
 loadStreamers();
+var halfHour = 1800000; //time in milis that is 30min
 
 //Start Mixer -----------------------------------------------------------------------------------------
 var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");
