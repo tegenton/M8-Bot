@@ -1,4 +1,4 @@
-var version = "7.6";
+var version = "7.6.1";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -186,7 +186,7 @@ function mixerCheck() {
   }
 }
 const delay = require("delay");
-delay(60000).then(() => {
+delay(30000).then(() => {
   mixerCheck();
 });
 //End Mixer ------------------------------------------------------------------------------------------
