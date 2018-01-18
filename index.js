@@ -1,4 +1,4 @@
-var version = "7.5.1";
+var version = "7.6";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -99,34 +99,38 @@ const fs = require("fs");
 const streamerFolderMixer = "./users";
 const streamerFolderTwitch = "./users_twitch";
 
-fs.readdir(streamerFolderMixer, (err, files) => {
-  files.forEach(file => {
-    var files = file;
-  });
-  var fileCount = files.length;
-  //var myStreamersMixer = "Current **Mixer** Streamer List:\n"
-  var allMixer = "";
-  for (i = 0; i < fileCount; i++) {
-    var name = files[i].replace(".txt", ", ");
-    var allMixer = allMixer + name;
-  }
-  //console.log(allMixer)
-  fs.writeFile("./streamers.txt", allMixer);
-});
+function loadStreamers() {
 
-fs.readdir(streamerFolderTwitch, (err, files) => {
-  files.forEach(file => {
-    var files = file;
+  fs.readdir(streamerFolderMixer, (err, files) => {
+    files.forEach(file => {
+      var files = file;
+    });
+    var fileCount = files.length;
+    //var myStreamersMixer = "Current **Mixer** Streamer List:\n"
+    var allMixer = "";
+    for (i = 0; i < fileCount; i++) {
+      var name = files[i].replace(".txt", ", ");
+      var allMixer = allMixer + name;
+    }
+    //console.log(allMixer)
+    fs.writeFile("./streamers.txt", allMixer.replace(".DS_Store", ""));
   });
-  var fileCount = files.length;
-  var allTwitch = "";
-  for (i = 0; i < fileCount; i++) {
-    var name = files[i].replace(".txt", ", ");
-    var allTwitch = allTwitch + name;
-  }
-  //console.log(allMixer)
-  fs.writeFile("./streamersTwitch.txt", allTwitch);
-});
+
+  fs.readdir(streamerFolderTwitch, (err, files) => {
+    files.forEach(file => {
+      var files = file;
+    });
+    var fileCount = files.length;
+    var allTwitch = "";
+    for (i = 0; i < fileCount; i++) {
+      var name = files[i].replace(".txt", ", ");
+      var allTwitch = allTwitch + name;
+    }
+    //console.log(allMixer)
+    fs.writeFile("./streamersTwitch.txt", allTwitch.replace(".DS_Store", ""));
+  });
+}
+
 
 const Carina = require("carina").Carina;
 const ws = require("ws");
@@ -137,46 +141,54 @@ const ca = new Carina({
   isBot: true
 }).open();
 
+loadStreamers();
+
 //Start Mixer -----------------------------------------------------------------------------------------
 var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");
 var streamerCount = streamers.length;
 
-for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
-  var halfHour = 1800000; //time in milis that is 30min
-  var bootTime = (new Date).getTime(); //get the time the bot booted up
-  var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
-  // fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
-  var request = require("request"); //the var to request details on the streamer
-  request("https://mixer.com/api/v1/channels/" + streamers[i], function(error, response, body) { //ste info for the streamer in JSON
-    if (!error && response.statusCode == 200) { //if there is no error checking
-      var mixerInfo = JSON.parse(body); //setting a var for the JSON info
-      const mixerID = mixerInfo.id; //getting the ID of the streamer
-      console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
-      ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
-        var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
-        if (mixerStatus == true) { //if the bam info JSON says they are live
-          var liveTime = (new Date).getTime(); //time the bot sees they went live
-          var lastLiveTime = fs.readFileSync("./user_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
-          var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
-          //console.log(timeDiff);
-          if (timeDiff >= halfHour) { //if its been 30min or more
-            console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
-            const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
-            hook.sendMessage("!live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
+function mixerCheck() {
+  for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
+    var halfHour = 1800000; //time in milis that is 30min
+    var bootTime = (new Date).getTime(); //get the time the bot booted up
+    var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
+    // fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
+    var request = require("request"); //the var to request details on the streamer
+    request("https://mixer.com/api/v1/channels/" + streamers[i], function(error, response, body) { //ste info for the streamer in JSON
+      if (!error && response.statusCode == 200) { //if there is no error checking
+        var mixerInfo = JSON.parse(body); //setting a var for the JSON info
+        const mixerID = mixerInfo.id; //getting the ID of the streamer
+        console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+        ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
+          var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
+          if (mixerStatus == true) { //if the bam info JSON says they are live
+            var liveTime = (new Date).getTime(); //time the bot sees they went live
+            var lastLiveTime = fs.readFileSync("./user_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
+            var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
+            //console.log(timeDiff);
+            if (timeDiff >= halfHour) { //if its been 30min or more
+              console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
+              const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
+              hook.sendMessage("!live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
 
 
 
 
+            }
+            if (timeDiff < halfHour) { //if its been less than 30min
+              console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
+            }
+            fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
           }
-          if (timeDiff < halfHour) { //if its been less than 30min
-            console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
-          }
-          fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
-        }
-      });
-    }
-  });
+        });
+      }
+    });
+  }
 }
+const delay = require("delay");
+delay(60000).then(() => {
+  mixerCheck();
+});
 //End Mixer ------------------------------------------------------------------------------------------
 
 
@@ -223,7 +235,7 @@ function twitchCheck() {
     }
   }
 }
-const delay = require("delay");
+
 delay(60000).then(() => {
   twitchCheck();
 });

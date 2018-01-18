@@ -1,9 +1,11 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
   const settings = require("../config.js");
+  const mainFile = require("../index.js");
+
   message.delete();
   const helpEmbed = new Discord.RichEmbed()
-    .setTitle("M8 Bot Help Version " + settings.version)
+    .setTitle("M8 Bot Help Version " + mainFile.version)
     .setColor(0x9900FF)
     .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
     .setThumbnail("http://i.imgur.com/nXvRJXM.png")
