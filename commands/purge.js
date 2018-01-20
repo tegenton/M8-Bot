@@ -6,7 +6,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       "MANAGE_MESSAGES"
     ) == true) {
     if (isNaN(count)) {
-      message.reply("❌ Please follow the purg command with a number from 1 to 100!");
+      message.reply("❌ Please follow the purge command with a number from 1 to 100!");
     }
     if (!isNaN(count)) {
       if (count <= 0) {
