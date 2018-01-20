@@ -1,5 +1,6 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
+  require('discord.js-aliases');
   var fs = require("fs");
   var userDir = __dirname.replace("commands", "users_twitch");
   var rootDir = __dirname.replace("commands", "");

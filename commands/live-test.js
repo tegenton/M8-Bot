@@ -1,5 +1,6 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
+  require('discord.js-aliases');
   var userDir = __dirname.replace("commands", "users");
   var fs = require("fs");
   const serverSettings = client.settings.get(message.guild.id);

@@ -1,4 +1,4 @@
-var version = "7.6.2";
+var version = "7.7";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -8,6 +8,7 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 
 // Load up the discord.js library
 const Discord = require("discord.js");
+require('discord.js-aliases');
 // We also load the rest of the things we need in this file:
 const {
   promisify
