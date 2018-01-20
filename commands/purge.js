@@ -14,7 +14,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
       }
       if (count >= 1 && count <= 100) {
         message.channel.bulkDelete(count)
-        message.channel.send(`☑ Purged ${count} messages from ${message.channel.name}`)
+        message.channel.send(`☑ Purged ${count} message(s) from ${message.channel.name}`)
       }
       if (count > 100) {
         message.reply("❌ I can only purge up to 100 messages at a time!")
