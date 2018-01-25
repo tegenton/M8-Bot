@@ -17,9 +17,28 @@ module.exports = (client, message) => {
   // to the message object, so `message.settings` is accessible.
   message.settings = settings;
 
+  // Banned words filter
+
+  if (settings.bannedWords != null) {
+    //message.reply(client.permlevel(message))
+    if (client.permlevel(message) <= "3") {
+      var badWords = settings.bannedWords.toString().toLowerCase().split(", ");
+      var sentMessage = message.content.toString().toLowerCase();
+      for (b = 0; b < badWords.length; b++) {
+        if (sentMessage.includes(badWords[b])) {
+          message.delete();
+          message.reply("the message you just sent contained a banned word on this server!");
+          return;
+        }
+      }
+    }
+  }
+
+
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
   if (message.content.indexOf(settings.prefix) !== 0) return;
+
 
   // Here we separate our "command" name, and our "arguments" for the command.
   // e.g. if we have the message "+say Is this the real life?" , we'll get the following:
