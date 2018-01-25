@@ -8,7 +8,10 @@ M8 Bot is a Discord chat bot designed for Twitch & Mixer streamers. It contains 
 
 This is the branch for the re write of M8 Bot.
 In the re write, Evil-Codes will be joining to make M8 Bot even better!
+
 Evil-Codes - https://github.com/Evil-Codes
+
+[![Discord Bots](https://discordbots.org/api/widget/278362996349075456.svg)](https://discordbots.org/bot/278362996349075456)
 
 # Powered by
 [![](https://camo.githubusercontent.com/40129aa4640399b5e65cc3c101361a6a0b5d6467/68747470733a2f2f646973636f72642e6a732e6f72672f7374617469632f6c6f676f2e737667)](https://discord.js.org)
