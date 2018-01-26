@@ -19,6 +19,7 @@
     "enmap-level": "^1.0.0",
     "fs": "0.0.1-security",
     "long": "^3.2.0",
+    "malapi": "0.0.3",
     "moment": "^2.19.1",
     "moment-duration-format": "^2.1.1",
     "opusscript": "0.0.3",
