@@ -14,7 +14,8 @@ exports.run = (client, message) => {
       .setThumbnail("http://i.imgur.com/nXvRJXM.png")
       .setTimestamp()
       .addField("M8 Bot | Change Log", "See changes that been added/removed/fixed.")
-      .addField("Change Log | 1/25/2018", "Added Bannedwords/Filter to !set view")
+      .addField("1/25/2018", "Added Bannedwords/Filter to !set view")
+      .addField("1/26/2018", "Added !anime <search-name> This will search the MAL Database \nAdded 'known issues' to !m8bug \nRemoved !tank command as no longer needed")
     message.channel.send({
       embed: serverEmbed
     });
@@ -35,3 +36,5 @@ exports.help = {
   description: 'Get info about changes to M8 Bot.',
   usage: 'changelog'
 };
+
+//Dev Notes: Please update change logs when changes are added/removed/fixed on M8 Bot.

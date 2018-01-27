@@ -10,6 +10,7 @@ exports.run = (client, message) => {
     .addField("Github", "https://goo.gl/DVEsVs", true)
     .addField("Twitter", "https://goo.gl/kG3kRR", true)
     .addField("My Discord", settings.officialDiscord, true)
+    .addField("Known Issues", "Music feature crashes [Status: Investigating]")
     .setThumbnail(settings.botLogo)
     .setFooter("Sent via M8 Bot", settings.botLogo)
     .setTimestamp()
