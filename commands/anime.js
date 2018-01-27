@@ -20,7 +20,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     .setURL(anime.detailsLink)
     //.toString().replace("[ ", "").replace("'", "").replace(" ]", "").replace(",", "")
     .setDescription(anime.synopsis)
-    .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+    .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
     .setThumbnail(anime.image)
     .setColor(0x9900FF)
 

@@ -4,7 +4,7 @@ exports.run = (client, message) => {
   const meEmbed = new Discord.RichEmbed()
     .setTitle(message.author.username)
     .setColor(0x9900FF)
-    .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+    .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
     .setThumbnail(message.author.displayAvatarURL)
     .setTimestamp()
     .addField("ID", message.author.id, true)

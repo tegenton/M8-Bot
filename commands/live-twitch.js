@@ -32,7 +32,7 @@ exports.run = (client, message) => {
             .setAuthor(twitchInfo.status)
             .setColor(0x9900FF)
             .setDescription("Hey guys, " + twitch + " is live right now! Click above to watch!")
-            .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+            .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
             .setThumbnail(twitchInfo.logo)
             .setTimestamp()
             .setURL("http://twitch.tv/" + twitch)

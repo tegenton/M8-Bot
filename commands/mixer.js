@@ -9,7 +9,7 @@ exports.run = (client, message) => {
       const mixerStuff = new Discord.RichEmbed()
         .setColor(0x9900FF)
         .setTitle(mixerInfo.token)
-        .setFooter("Sent via M8 Bot", "http://i.imgur.com/nXvRJXM.png")
+        .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
         .setTimestamp()
         .setThumbnail(mixerInfo.user.avatarUrl)
         .setURL("http://mixer.com/" + mixer)
