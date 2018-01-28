@@ -7,8 +7,8 @@ exports.run = (client, message) => {
   const helpEmbed = new Discord.RichEmbed()
     .setTitle("M8 Bot Help Version " + mainFile.version)
     .setColor(0x9900FF)
-    .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
-    .setThumbnail("https://m8bot.js.org/img/profile.png")
+    .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
+    .setThumbnail("http://m8bot.js.org/img/profile.png")
     .setTimestamp()
     .addField("Help Page", "A full list of commands can be found at https://m8bot.js.org/#info.");
   message.channel.send({

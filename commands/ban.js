@@ -16,7 +16,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     .addField("Banned User", `${user} (${user.user.tag})`)
     .addField("Moderator", `${message.author} (${message.member.user.tag})`)
     .addField("Reason", args.join(" ").split(person[0] + " ")[1])
-    .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
+    .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
     .setThumbnail(user.user.avatarURL)
     .setColor(0x9900FF);
 

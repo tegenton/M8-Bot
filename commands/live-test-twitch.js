@@ -31,7 +31,7 @@ exports.run = (client, message) => {
           .setAuthor(twitchInfo.status)
           .setColor(0x9900FF)
           .setDescription("Hey guys this is a test for, " + twitchInfo.display_name + "'s stream. This was requested by either a support agent or developer.")
-          .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
+          .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
           .setThumbnail(twitchInfo.logo)
           .setTimestamp()
           .setURL("http://twitch.tv/" + twitch)

@@ -10,7 +10,7 @@ exports.run = (client, message) => {
     const serverEmbed = new Discord.RichEmbed()
       .setTitle(message.guild.name)
       .setColor(0x9900FF)
-      .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
+      .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
       .setThumbnail(iconURL)
       .setTimestamp()
       .addField("Server ID", message.guild.id, true)

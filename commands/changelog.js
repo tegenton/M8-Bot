@@ -3,15 +3,15 @@ exports.run = (client, message) => {
   message.delete();
   if (message.guild != null) {
     if (message.guild.iconURL = null) {
-      var iconURL = "https://m8bot.js.org/img/profile.png";
+      var iconURL = "http://m8bot.js.org/img/profile.png";
     } else {
       var iconURL = message.guild.iconURL;
     }
     const serverEmbed = new Discord.RichEmbed()
       .setTitle(message.guild.name)
       .setColor(0x9900FF)
-      .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
-      .setThumbnail("https://m8bot.js.org/img/profile.png")
+      .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
+      .setThumbnail("http://m8bot.js.org/img/profile.png")
       .setTimestamp()
       .addField("M8 Bot | Change Log", "See changes that been added/removed/fixed.")
       .addField("1/25/2018", "Added Bannedwords/Filter to !set view")

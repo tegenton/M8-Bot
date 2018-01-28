@@ -49,7 +49,7 @@ exports.run = (client, message) => {
             const steamEmbed = new Discord.RichEmbed()
               .setTitle(name)
               .setColor(0x9900FF)
-              .setFooter("Sent via M8 Bot", "https://m8bot.js.org/img/profile.png")
+              .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
               .setURL("http://store.steampowered.com/app/" + steamID)
               .setImage(image)
               .setThumbnail(image)
