@@ -13,8 +13,8 @@ exports.run = (client, message) => {
       .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
       .setThumbnail("http://m8bot.js.org/img/profile.png")
       .setTimestamp()
-      .addField("M8 Bot | Change Log", "See changes that been added/removed/fixed.")
-      .addField("Previous Change Log", "Added Bannedwords/Filter to !set view \nAdded !anime <search-name> This will search the MAL Database \nAdded 'known issues' to !m8bug \nRemoved !tank command as no longer needed \n\nPrevious Log Date: 1/25/2018")
+      .addField("M8 Bot | Change Log", "See changes that been added/removed/fixed. \n")
+      .addField("Previous Change Log | 1/25/2018", "Added Bannedwords/Filter to !set view \nAdded !anime <search-name> This will search the MAL Database \nAdded 'known issues' to !m8bug \nRemoved !tank command as no longer needed")
       .addField("2/5/2018", "Removed !cornporn - no longer needed")
     message.channel.send({
       embed: serverEmbed
