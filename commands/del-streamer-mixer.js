@@ -52,7 +52,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["delstreamermixer","remove-streamer-mixer"],
+  aliases: ["delstreamermixer","remove-streamer-mixer", "dms"],
   permLevel: 0
 };
 

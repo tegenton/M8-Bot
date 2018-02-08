@@ -16,7 +16,6 @@ module.exports = (client, guild) => {
       server_count: client.guilds.size
     })
     .then(() => console.log("Updated dbots.org status.")).catch((e) => e);
-  guild.channels.first().send("Hey guys and gals! I'm M8 Bot! Its great to meet you all, and I hope you enjoy me :P\nA list of my commands can be found by using \"!help m8bot\".\nIf you encounter any issues, you can type \"!m8bug\" to recive links to submit issues!\nAdditionaly, you can learn how to change settings & add streamers by visiting https://m8bot.js.org/#Setup.");
 
   const joinedEmbed = new Discord.RichEmbed()
     .setColor(0x00FF00)
@@ -27,6 +26,12 @@ module.exports = (client, guild) => {
     .addField("Members", guild.memberCount, true)
     .addField("Owner", guild.owner, true);
   client.channels.get("352990232624496641").sendEmbed(joinedEmbed);
+
+  if (guild.channels.first() == null) {
+    return;
+  } else {
+    guild.channels.first().send("Hey guys and gals! I'm M8 Bot! Its great to meet you all, and I hope you enjoy me :P\nA list of my commands can be found by using \"!help m8bot\".\nIf you encounter any issues, you can type \"!m8bug\" to recive links to submit issues!\nAdditionaly, you can learn how to change settings & add streamers by visiting https://m8bot.js.org/#Setup.");
+  }
 
 
 };

@@ -9,9 +9,9 @@ module.exports = (client, message) => {
 
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
-  const settings = message.guild
-    ? client.settings.get(message.guild.id)
-    : client.config.defaultSettings;
+  const settings = message.guild ?
+    client.settings.get(message.guild.id) :
+    client.config.defaultSettings;
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
@@ -28,12 +28,28 @@ module.exports = (client, message) => {
         if (sentMessage.includes(badWords[b])) {
           message.delete();
           message.reply("the message you just sent contained a banned word on this server!");
+          // const wordEmbed = new Discord.RichEmbed()
+          // .setAuthor("M8 Bot Moderation")
+          //   .addField("Warned Mortal", `${user} (${user.user.tag})`)
+          //   .addField("Message", sentMessage)
+          //   .addField("Reason", "Sent a banned word.")
+          //   .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
+          //   .setThumbnail(user.user.avatarURL)
+          //   .setTimestamp()
+          //   .setColor(0x9900FF);
+          // message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
+          //   embed: wordEmbed
+          // }).catch(err => console.log(err));
           return;
         }
       }
     }
   }
 
+  // if (message.content = "pie") {
+  //   message.reply(`my prefix is ${settings.prefix}`)
+  //   return
+  // }
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.

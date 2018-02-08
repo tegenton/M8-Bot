@@ -1,4 +1,4 @@
-var version = "8.1";
+var version = "8.2";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -165,6 +165,9 @@ function mixerCheck() {
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the bam info JSON says they are live
             var liveTime = (new Date).getTime(); //time the bot sees they went live
+            if (!fs.existsSync("./user_time/" + mixerInfo.token + "_time.txt")) {
+              fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", "0")
+            }
             var lastLiveTime = fs.readFileSync("./user_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
             var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
             //console.log(timeDiff);
@@ -210,6 +213,9 @@ function twitchCheck() {
   console.log(chalk.magenta("Checking Twitch!"));
   for (tc = 0; tc < streamersTwitch.length; tc++) {
     var liveTime = (new Date).getTime();
+    if (!fs.existsSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt")) {
+      fs.writeFile("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "0")
+    }
     var lastLiveTime = fs.readFileSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "utf-8");
     var timeDiff = liveTime - lastLiveTime;
     if (timeDiff >= halfHour) { //if its been 30min or more

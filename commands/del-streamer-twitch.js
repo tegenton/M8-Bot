@@ -46,7 +46,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["delstreamertwitch","remove-streamer-twitch"],
+  aliases: ["delstreamertwitch","remove-streamer-twitch", "del streamer twitch", "remove streamer twitch"],
   permLevel: 0
 };
 

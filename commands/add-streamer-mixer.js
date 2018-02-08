@@ -48,6 +48,9 @@ exports.run = (client, message) => {
             var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
             if (mixerStatus == true) { //if the bam info JSON says they are live
               var liveTime = (new Date).getTime(); //time the bot sees they went live
+              if (!fs.existsSync("./user_time/" + mixerInfo.token + "_time.txt")) {
+                fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", "0")
+              }
               var lastLiveTime = fs.readFileSync(timeDir + "/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
               var timeDiff = liveTime - lastLiveTime; //gets the diff of urrent and last live times
               //console.log(timeDiff);
@@ -74,7 +77,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["addstreamermixer"],
+  aliases: ["addstreamermixer", "asm"],
   permLevel: 0
 };
 
