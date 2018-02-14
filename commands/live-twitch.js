@@ -10,8 +10,7 @@ exports.run = (client, message) => {
 
 
   if ((message.content.startsWith("!live-twitch") && message.author.id == "401967977228009473") || //if the bot sends the message
-    (message.content.startsWith("!live-twitch") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384") || //if comixs sends the message (and in certian chat)
-    (message.content.startsWith("!live-twitch") && message.author.id == "161556067954720768" && message.channel.id == "401967908739088384")) { //if evil sends the message (and in certian chat)
+    (message.content.startsWith("!live-twitch") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384")) { //if comixs sends the message (and in certian chat)
     const args = message.content.split(" ").slice(1); //seperate command into args
     const twitch = args[0]; //twitch name is arg 0
     if (fs.existsSync(userDir + "/" + twitch + ".txt")) { //varifies that the streamer is on record
@@ -43,7 +42,20 @@ exports.run = (client, message) => {
           var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
             if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + twitchInfo.display_name + " is live on Twitch!"); //send the live message to servers
+
+              var liveMessage = "";
+              var guildID = client.channels.get(serversAllowed[i]).guild.id
+              const settings = client.settings.get(guildID);
+              if (!settings.livePing || settings.livePing == "true"){
+                var liveMessage = liveMessage + "@here, "
+              }
+              if (!settings.liveTwitchMessage){
+                var liveMessage = liveMessage + twitchInfo.display_name + " is now live on Twitch!"
+              }
+              else {
+                var liveMessage = liveMessage + settings.liveTwitchMessage.replace("{{streamer}}", twitchInfo.display_name)
+              }
+              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
             }
           }
         }

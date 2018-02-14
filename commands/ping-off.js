@@ -1,19 +1,16 @@
 exports.run = (client, message) => {
   message.delete();
-  if (message.author.id == message.guild.ownerID || message.member.hasPermission("ADMINISTRATOR")) {
-    message.channel.overwritePermissions("278362996349075456", {
-      "MENTION_EVERYONE": false,
-    })
-    message.reply("the `@here` ping has been disabled in this channel.")
-  } else {
-    message.reply("you do not have permission to run this command!")
-  }};
+  const settings = client.settings.get(message.guild.id);
+  message.delete();
+  message.channel.reply(`the ping-off command is no longer used. In order to turn the ping off, run "${settings.prefix}set edit livePing false".
+  If you recive an error, you may need to run "${settings.prefix}set add livePing false.`)
+};
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: "Administrator"
 };
 
 exports.help = {

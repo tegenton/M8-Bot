@@ -1,20 +1,15 @@
 exports.run = (client, message) => {
+  const settings = client.settings.get(message.guild.id);
   message.delete();
-  if (message.author.id == message.guild.ownerID || message.member.hasPermission("ADMINISTRATOR")) {
-    message.channel.overwritePermissions("278362996349075456", {
-      "MENTION_EVERYONE": true,
-    })
-    message.reply("the `@here` ping has been enabled in this channel.")
-  } else {
-    message.reply("you do not have permission to run this command!")
-  }
+  message.channel.reply(`the ping-on command is no longer used. In order to  turn the ping on, run "${settings.prefix}set edit livePing true".
+  If you recive an error, you may need to run "${settings.prefix}set add livePing true.`)
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: true,
   aliases: [],
-  permLevel: 0
+  permLevel: "Administrator"
 };
 
 exports.help = {

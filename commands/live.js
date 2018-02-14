@@ -10,8 +10,7 @@ exports.run = (client, message) => {
 
 
   if ((message.content.startsWith("!live") && message.author.id == "401967977228009473") || //if the bot sends the message
-    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384") || //if comixs sends the message (and in certian chat)
-    (message.content.startsWith("!live") && message.author.id == "161556067954720768" && message.channel.id == "401967908739088384")) { //if evil sends the message (and in certian chat)
+    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "275344557674201089")) { //if comixs sends the message (and in certian chat)
     const args = message.content.split(" ").slice(1); //seperate command into args
     const mixer = args[0]; //mixer name is arg 0
     if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
@@ -37,8 +36,23 @@ exports.run = (client, message) => {
             var serversAllowedRaw = fs.readFileSync(userDir + "/" + mixer + ".txt", "utf-8"); //get the list of servers they are allowed to ne announced on
             var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
             for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
+
               if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+
+                var liveMessage = "";
+                var guildID = client.channels.get(serversAllowed[i]).guild.id
+                const settings = client.settings.get(guildID);
+                if (!settings.livePing || settings.livePing == "true"){
+                  var liveMessage = liveMessage + "@here, "
+                }
+                if (!settings.liveMixerMessage){
+                  var liveMessage = liveMessage + mixer + " is now live on Mixer!"
+                }
+                else {
+                  var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
+                }
+
+                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
               }
             }
           } else { //if there is a game set
@@ -64,7 +78,19 @@ exports.run = (client, message) => {
             var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
             for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
               if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, "@here, " + mixer + " is live!"); //send the live message to servers
+                var liveMessage = "";
+                var guildID = client.channels.get(serversAllowed[i]).guild.id
+                const settings = client.settings.get(guildID);
+                if (!settings.livePing || settings.livePing == "true"){
+                  var liveMessage = liveMessage + "@here, "
+                }
+                if (!settings.liveMixerMessage){
+                  var liveMessage = liveMessage + mixer + " is now live on Mixer!"
+                }
+                else {
+                  var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
+                }
+                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
               }
             }
 
