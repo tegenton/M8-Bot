@@ -3,6 +3,8 @@
 // goes `client, other, args` when this function is run.
 
 module.exports = (client, message) => {
+  const Discord = require("discord.js");
+
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot && message.author.id != "401967977228009473") return;
@@ -28,19 +30,24 @@ module.exports = (client, message) => {
         if (sentMessage.includes(badWords[b])) {
           message.delete();
           message.reply("the message you just sent contained a banned word on this server!");
-          // const wordEmbed = new Discord.RichEmbed()
-          // .setAuthor("M8 Bot Moderation")
-          //   .addField("Warned Mortal", `${user} (${user.user.tag})`)
-          //   .addField("Message", sentMessage)
-          //   .addField("Reason", "Sent a banned word.")
-          //   .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
-          //   .setThumbnail(user.user.avatarURL)
-          //   .setTimestamp()
-          //   .setColor(0x9900FF);
-          // message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
-          //   embed: wordEmbed
-          // }).catch(err => console.log(err));
-          return;
+          if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()) {
+            return
+          } else {
+            const wordEmbed = new Discord.RichEmbed()
+              .setAuthor("M8 Bot Moderation")
+              .addField("Warned User", `${message.author} (${message.author.tag})`)
+              .addField("Message", sentMessage)
+              .addField("Reason", "Sent a banned word.")
+              .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
+              .setThumbnail(message.author.avatarURL)
+              .setTimestamp()
+              .setColor(0x9900FF);
+            message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
+              embed: wordEmbed
+            }).catch(err => console.log(err));
+            return;
+          }
+
         }
       }
     }

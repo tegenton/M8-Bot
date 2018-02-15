@@ -1,4 +1,4 @@
-var version = "9.0.1";
+var version = "9.1.0";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
