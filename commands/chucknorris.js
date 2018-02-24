@@ -12,7 +12,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['cn','chuck'],
+  aliases: ['cn', 'chuck'],
   permLevel: 0
 };
 

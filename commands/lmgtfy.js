@@ -11,7 +11,7 @@ exports.run = (client, message) => {
   }
   var spaces = term.split(" ");
   var input = term.replace(" ", "+");
-  for (i=0; i < spaces.length; i++){
+  for (i = 0; i < spaces.length; i++) {
     var input = input.replace(" ", "+");
   }
   message.channel.send("Here's your google link " + message.author + " - http://lmgtfy.com/?q=" + input);
@@ -20,7 +20,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ['google','search'],
+  aliases: ['google', 'search'],
   permLevel: 0
 };
 

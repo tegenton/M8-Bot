@@ -46,13 +46,12 @@ exports.run = (client, message) => {
               var liveMessage = "";
               var guildID = client.channels.get(serversAllowed[i]).guild.id
               const settings = client.settings.get(guildID);
-              if (!settings.livePing || settings.livePing == "true"){
+              if (!settings.livePing || settings.livePing == "true") {
                 var liveMessage = liveMessage + "@here, "
               }
-              if (!settings.liveTwitchMessage){
+              if (!settings.liveTwitchMessage) {
                 var liveMessage = liveMessage + twitchInfo.display_name + " is now live on Twitch!"
-              }
-              else {
+              } else {
                 var liveMessage = liveMessage + settings.liveTwitchMessage.replace("{{streamer}}", twitchInfo.display_name)
               }
               client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers

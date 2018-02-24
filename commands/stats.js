@@ -1,4 +1,6 @@
-const { version } = require("discord.js");
+const {
+  version
+} = require("discord.js");
 const settings = require("../config.js");
 const mainFile = require("../index.js")
 const moment = require("moment");
@@ -14,7 +16,9 @@ exports.run = (client, message, args, level) => { // eslint-disable-line no-unus
 • Channels   :: ${client.channels.size.toLocaleString()}
 • M8 Bot     :: v${mainFile.version}
 • Discord.js :: v${version}
-• Node       :: ${process.version}`, {code: "asciidoc"});
+• Node       :: ${process.version}`, {
+    code: "asciidoc"
+  });
 };
 
 exports.conf = {

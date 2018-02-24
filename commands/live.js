@@ -42,13 +42,12 @@ exports.run = (client, message) => {
                 var liveMessage = "";
                 var guildID = client.channels.get(serversAllowed[i]).guild.id
                 const settings = client.settings.get(guildID);
-                if (!settings.livePing || settings.livePing == "true"){
+                if (!settings.livePing || settings.livePing == "true") {
                   var liveMessage = liveMessage + "@here, "
                 }
-                if (!settings.liveMixerMessage){
+                if (!settings.liveMixerMessage) {
                   var liveMessage = liveMessage + mixer + " is now live on Mixer!"
-                }
-                else {
+                } else {
                   var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
                 }
 
@@ -81,13 +80,12 @@ exports.run = (client, message) => {
                 var liveMessage = "";
                 var guildID = client.channels.get(serversAllowed[i]).guild.id
                 const settings = client.settings.get(guildID);
-                if (!settings.livePing || settings.livePing == "true"){
+                if (!settings.livePing || settings.livePing == "true") {
                   var liveMessage = liveMessage + "@here, "
                 }
-                if (!settings.liveMixerMessage){
+                if (!settings.liveMixerMessage) {
                   var liveMessage = liveMessage + mixer + " is now live on Mixer!"
-                }
-                else {
+                } else {
                   var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
                 }
                 client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers

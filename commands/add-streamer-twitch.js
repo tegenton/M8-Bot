@@ -95,7 +95,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["addstreamertwitch", "ast", "add streamer twitch"],
+  aliases: ["addstreamertwitch", "ast", "addtwitch"],
   permLevel: 0
 };
 

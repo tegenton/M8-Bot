@@ -77,7 +77,7 @@ exports.run = (client, message) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["addstreamermixer", "asm"],
+  aliases: ["addstreamermixer", "asm", "addmixer"],
   permLevel: 0
 };
 

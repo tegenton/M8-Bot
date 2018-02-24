@@ -1,7 +1,7 @@
 exports.run = (client, message) => {
   message.delete();
 
-    message.channel.send("http://i.imgur.com/CVHyMXt.png");
+  message.channel.send("http://i.imgur.com/CVHyMXt.png");
 
 };
 

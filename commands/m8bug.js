@@ -16,7 +16,8 @@ exports.run = (client, message) => {
     .setTimestamp()
   message.channel.send({
     embed: bugEmbed
-  })};
+  })
+};
 
 exports.conf = {
   enabled: true,
