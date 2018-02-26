@@ -18,10 +18,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   var userInfo = client.userInfo.get(message.author.id)
   var points = parseInt(client.userInfo.get(message.author.id).points)
 
-  if (points <= 0){
+  if (points <= 0) {
     return message.reply(`you do not have enough ${client.config.pointName} to buy a custom image.`)
   }
-  
+
   if (message.mentions.members.size == 1) {
     var target = message.mentions.members.first().user
   } else {
@@ -29,17 +29,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   }
 
   let msg
-  msg = await message.channel.send(`<a:loading:417323455147540490> Look away kids, **${target.username}** about to get violent...`);
+  msg = await message.channel.send(`<a:loading:417323455147540490> ${target.username} is being painted...`);
 
   await message.channel.send(new Attachment(
-    await client.idiotAPI.triggered(target.displayAvatarURL),
-    "triggered.gif"));
-    
-    var userInfo = client.userInfo.get(message.author.id)
-    var points = parseInt(client.userInfo.get(message.author.id).points)
-    userInfo.points = points - 1;
-    client.userInfo.set(message.author.id, userInfo)
-    
+    await client.idiotAPI.bobross(target.displayAvatarURL),
+    "bobross.png"));
+
+  var userInfo = client.userInfo.get(message.author.id)
+  var points = parseInt(client.userInfo.get(message.author.id).points)
+  userInfo.points = points - 1;
+  client.userInfo.set(message.author.id, userInfo)
 
   await msg.delete();
 
@@ -49,13 +48,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["trigger"],
+  aliases: ["robboss"],
   permLevel: "User"
 };
 
 exports.help = {
-  name: "triggered",
+  name: "bobross",
   category: "Memes",
-  description: "Get a triggered image.",
-  usage: "triggered @Person"
+  description: "Get a bobross image.",
+  usage: "bobross @Person"
 };

@@ -82,9 +82,15 @@ exports.run = (client, message) => {
                 const settings = client.settings.get(guildID);
                 if (!settings.livePing || settings.livePing == "true") {
                   var liveMessage = liveMessage + "@here, "
+                  if (!settings.livePing) {
+                    settings.livePing = "true"
+                    client.settings.set(message.guild.id, settings)
+                  }
                 }
                 if (!settings.liveMixerMessage) {
                   var liveMessage = liveMessage + mixer + " is now live on Mixer!"
+                  settings.liveMixerMessage = "{{streamer}} is now live on Mixer!"
+                  client.settings.set(message.guild.id, settings)
                 } else {
                   var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
                 }

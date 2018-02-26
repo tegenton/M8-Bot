@@ -2,6 +2,17 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const {
     Attachment
   } = require("discord.js");
+
+  const settings = client.settings.get(message.guild.id);
+  if (!settings.imageCommands) {
+    settings.imageCommands = "on"
+    client.settings.set(message.guild.id, settings)
+  } else {
+    if (settings.imageCommands == "off" || settings.imageCommands == "false") {
+      return;
+    }
+  }
+
   const person = message.content.replace(client.config.prefix, "").split(" ").slice(1)
 
   var userInfo = client.userInfo.get(message.author.id)

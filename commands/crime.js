@@ -1,6 +1,16 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   const settings = require("../config.js");
 
+  const serverSettings = client.settings.get(message.guild.id);
+  if (!serverSettings.moneyCommands) {
+    serverSettings.moneyCommands = "on"
+    client.settings.set(message.guild.id, serverSettings)
+  } else {
+    if (serverSettings.moneyCommands == "off" || serverSettings.moneyCommands == "false") {
+      return;
+    }
+  }
+
   var userInfo = client.userInfo.get(message.author.id)
   var points = parseInt(client.userInfo.get(message.author.id).points)
   var workTime = parseInt(client.userInfo.get(message.author.id).workTime)

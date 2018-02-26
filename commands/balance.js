@@ -2,6 +2,16 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const Discord = require("discord.js");
   const settings = require("../config.js");
 
+  const serverSettings = client.settings.get(message.guild.id);
+  if (!serverSettings.moneyCommands) {
+    serverSettings.moneyCommands = "on"
+    client.settings.set(message.guild.id, serverSettings)
+  } else {
+    if (serverSettings.moneyCommands == "off" || serverSettings.moneyCommands == "false") {
+      return;
+    }
+  }
+
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
