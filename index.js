@@ -1,4 +1,4 @@
-var version = "9.1.1";
+var version = "10.0.0";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -40,12 +40,24 @@ require("./modules/functions.js")(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 
+const Idiot = require("idiotic-api");
+client.idiotAPI = new Idiot.Client(client.config.idiotKey, {
+  dev: true
+});
+
 // Now we integrate the use of Evie's awesome Enhanced Map module, which
 // essentially saves a collection to disk. This is great for per-server configs,
 // and makes things extremely easy for this purpose.
 client.settings = new Enmap({
   provider: new EnmapLevel({
     name: "settings"
+  })
+});
+
+// Per user settings Enmap setup
+client.userInfo = new Enmap({
+  provider: new EnmapLevel({
+    name: "userInfo"
   })
 });
 
@@ -156,7 +168,7 @@ function mixerCheck() {
     var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
     // fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
     var request = require("request"); //the var to request details on the streamer
-    request("https://mixer.com/api/v1/channels/" + streamers[i], function(error, response, body) { //ste info for the streamer in JSON
+    request("https://mixer.com/api/v1/channels/" + streamers[i], function (error, response, body) { //ste info for the streamer in JSON
       if (!error && response.statusCode == 200) { //if there is no error checking
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
@@ -220,7 +232,7 @@ function twitchCheck() {
     var timeDiff = liveTime - lastLiveTime;
     if (timeDiff >= halfHour) { //if its been 30min or more
       var request = require("request"); //the var to request details on the streamer
-      request("https://api.twitch.tv/kraken/streams/" + streamersTwitch[tc] + "?client_id=" + settings.twitch_id, function(error, response, body) {
+      request("https://api.twitch.tv/kraken/streams/" + streamersTwitch[tc] + "?client_id=" + settings.twitch_id, function (error, response, body) {
         if (!error && response.statusCode == 200) { //if there is no error
           var twitchInfo = JSON.parse(body);
           if (twitchInfo.stream == null) {
@@ -251,3 +263,39 @@ delay(60000).then(() => {
 setInterval(twitchCheck, 120000); //run the check every 2min
 
 //End Twitch
+
+const DBL = require("dblapi.js");
+const dbl = new DBL(client.config.discordbots_org);
+// console.log(dbl.getVotes(true))
+// dbl.getVotes(true)
+dbl.getVotes(true, 1).then(votes => {
+  // Do something with the votes
+  console.log(votes)
+})
+
+function getDBLVotes() {
+  dbl.getVotes(true, 1).then(votes => {
+    // Do something with the votes
+    console.log("Checking DBL votes")
+    for (p = 0; p < votes.length; p++) {
+      var voterInfo = client.userInfo.get(votes[p])
+      var points = parseInt(client.userInfo.get(votes[p]).points)
+      voterInfo.points = points + 5;
+      client.userInfo.set(voter[p], voterInfo)
+    }
+  })
+}
+
+var schedule = require('node-schedule');
+
+var voteCheck = new schedule.RecurrenceRule();
+voteCheck.hour = 18;
+voteCheck.hour = 0;
+
+
+var j = schedule.scheduleJob(voteCheck, function () {
+  getDBLVotes()
+  //console.log("Ran on time")
+});
+
+//console.log(voteCheck.nextInvocation())

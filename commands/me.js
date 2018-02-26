@@ -1,5 +1,6 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
+  const settings = require("../config.js");
   message.delete();
   const meEmbed = new Discord.RichEmbed()
     .setTitle(message.author.username)
@@ -10,6 +11,7 @@ exports.run = (client, message) => {
     .addField("ID", message.author.id, true)
     .addField("Bot", message.author.bot, true)
     .addField("Registered", message.author.createdAt)
+    .addField(settings.pointName, client.userInfo.get(message.author.id).points)
   message.channel.send({
     embed: meEmbed
   });
