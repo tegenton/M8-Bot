@@ -48,15 +48,9 @@ exports.run = (client, message) => {
               const settings = client.settings.get(guildID);
               if (!settings.livePing || settings.livePing == "true") {
                 var liveMessage = liveMessage + "@here, "
-                if (!settings.livePing){
-                  settings.livePing = "true"
-                  client.settings.set(message.guild.id, settings)
-                }
               }
               if (!settings.liveTwitchMessage) {
                 var liveMessage = liveMessage + twitchInfo.display_name + " is now live on Twitch!"
-                settings.liveTwitchMessage = "{{streamer}} is now live on Twitch!"
-                client.settings.set(message.guild.id, settings)
               } else {
                 var liveMessage = liveMessage + settings.liveTwitchMessage.replace("{{streamer}}", twitchInfo.display_name)
               }

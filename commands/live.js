@@ -9,7 +9,7 @@ exports.run = (client, message) => {
 
 
 
-  if ((message.content.startsWith("!live") && message.author.id == "401967977228009473") || //if the bot sends the message
+  if ((message.content.startsWith("!live") && message.author.id == settings.liveID) || //if the bot sends the message
     (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "275344557674201089")) { //if comixs sends the message (and in certian chat)
     const args = message.content.split(" ").slice(1); //seperate command into args
     const mixer = args[0]; //mixer name is arg 0
@@ -82,15 +82,9 @@ exports.run = (client, message) => {
                 const settings = client.settings.get(guildID);
                 if (!settings.livePing || settings.livePing == "true") {
                   var liveMessage = liveMessage + "@here, "
-                  if (!settings.livePing) {
-                    settings.livePing = "true"
-                    client.settings.set(message.guild.id, settings)
-                  }
                 }
                 if (!settings.liveMixerMessage) {
                   var liveMessage = liveMessage + mixer + " is now live on Mixer!"
-                  settings.liveMixerMessage = "{{streamer}} is now live on Mixer!"
-                  client.settings.set(message.guild.id, settings)
                 } else {
                   var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
                 }
