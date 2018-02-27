@@ -7,7 +7,7 @@ module.exports = (client, message) => {
 
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
-  if (message.author.bot && message.author.id != "401967977228009473") return;
+  if (message.author.bot && message.author.id != client.config.liveID) return;
 
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
