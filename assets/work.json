@@ -1,0 +1,46 @@
+{
+    "lawn": {
+        "message": "{user} just finished mowing lawns and earned minimum wage! 2 {pointName} for you.",
+        "points": 2
+    },
+    "clean": {
+        "message": "{user} just cleaned the bathroom, ewww. Take 5 {pointName} for your hard work!",
+        "points": 5
+    },
+    "prostitute": {
+        "message": "The sexy {user} just sold their body for a whoping 10 {pointName}.",
+        "points": 10
+    },
+    "sleep": {
+        "message": "⏰⏰ {user} over slept and missed work!",
+        "points": 0
+    },
+    "NASCAR": {
+        "message": "🏎🏎 {user} just put the pedal to the metal a NASCAR race. Considering all you did was turn left, 8 {pointName} seems a bit high.",
+        "points": 8
+    },
+    "lemonade": {
+        "message": "🍋🍋 {user} sold some darn good lemonade at their stand. They made 3 {pointName} in profit.",
+        "points": 3
+    },
+    "crusade": {
+        "message": "⚔ **DEUS VULT** ⚔ {user} has helped take back the holy land and stole 10 {pointName} from the people. ⚔ **DEUS VULT** ⚔",
+        "points": 10
+    },
+    "bbq": {
+        "message": "🍔🌭 {user} just grilled at a dad's only BBQ. Everyone chipped in 4 {pointName} to thank you for your time.",
+        "points": 4
+    },
+    "lifeguard": {
+        "message": "🏊 Wow, {user} was the a lifeguard and there was only 1 casualty. 4 {pointName} for you.",
+        "points": 4
+    },
+    "fisherman": {
+        "message": "🎣🎣 {user} went fishing and sold what they caught for 3 {pointName}",
+        "points": 3
+    },
+    "IT": {
+        "message": "💻💻 Because {user}'s neighbors cant use Google, their neighbors payed them 4 {pointName} for helping them.",
+        "points": 4
+    }
+}

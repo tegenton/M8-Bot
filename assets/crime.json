@@ -1,0 +1,42 @@
+{
+    "crime": {
+
+        "pirate": {
+            "message": "<a:animeDance:417113750223716362><a:animeDance:417113750223716362> {user} just sold some pirated anime on the streets for 12 {pointName}.",
+            "points": 8
+        },
+        "drugs": {
+            "message": "{user} just sold some drugs at the local highschool. They turned 8 {pointName} in profit!",
+            "points": 8
+        },
+        "bank": {
+            "message": "💰💰 {user} just robbed a bank and got away with 10 {pointName}!",
+            "points": 10
+        },
+        "hack": {
+            "message": "🖥🖥 {user} just stole 8 {pointName} by hacking someone's bank account.",
+            "points": 8
+        },
+        "streets": {
+            "message": "{user} just went GTA style and beat up random people on the streets. They stole a total of 8 {pointName}.",
+            "points": 8
+        },
+        "bikes": {
+            "message": "🚲🚲 {user} stole some bikes off of the street and sold them to a pawn shop for 6 {pointName}.",
+            "points": 6
+        },
+        "mail": {
+            "message": "📦📦 {user} just beat up the mailman and stole from the mail truck. They found a check for 10 {pointName}.",
+            "points": 10
+        }
+    },
+    "fail": {
+        "1": "🚓🚓 {user} was caught trying to sell pirated anime!",
+        "2": "🚓🚓 {user} was caught trying to sell drugs!",
+        "3": "🚓🚓 {user} was caught trying to rob the bank!",
+        "4": "🚓🚓 {user} was caught trying to hack someone's bank account!",
+        "5": "🚓🚓 {user} was caught trying to beat up strangers on the street!",
+        "6": "🚓🚓 {user} was caught trying to steal bikes off of the streets!",
+        "7": "🚓🚓 {user} was caught trying to steam from the mail man!"
+    }
+}

@@ -9,7 +9,7 @@ exports.run = (client, message) => {
 
 
 
-  if ((message.content.startsWith("!live-twitch") && message.author.id == "401967977228009473") || //if the bot sends the message
+  if ((message.content.startsWith("!live-twitch") && message.author.id == settings.liveID) || //if the bot sends the message
     (message.content.startsWith("!live-twitch") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384")) { //if comixs sends the message (and in certian chat)
     const args = message.content.split(" ").slice(1); //seperate command into args
     const twitch = args[0]; //twitch name is arg 0
