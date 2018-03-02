@@ -1,5 +1,4 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const settings = require("../config.js");
 
   const serverSettings = client.settings.get(message.guild.id);
   if (!serverSettings.moneyCommands) {
@@ -26,42 +25,29 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var timeDiff = nowTime - workTime
     var cooldown = (1800000 - timeDiff)
     var cooldownProper = millisToMinutesAndSeconds(cooldown)
-    return message.reply(`you must wait ~${cooldownProper} to work again!\nYou can pay your 5 ${client.config.pointName} bypass and reset your cooldown, buy typing ${serverSettings.prefix}earn-again`)
-    //return message.reply(`you must wait ~${cooldown.toString().slice(0, 4)} minutes to play again!`)
-  }
 
-  function pay(wage) {
-    userInfo.points = points + wage;
-    userInfo.workTime = nowTime;
+    userInfo.points = points - 5;
+    userInfo.workTime = 0;
     client.userInfo.set(message.author.id, userInfo)
+
+    return message.reply(`you just spent 5 ${client.config.pointName} to reset your earning cooldown, which was ~${cooldownProper} long.`)
+
+  } else {
+    return message.reply(`no need to waste 5 ${client.config.pointName} on resetting your cooldown, it's already at zero.`)
   }
-
-  var workTypes = ["lawn", "clean", "prostitute", "lemonade", "sleep", "NASCAR", "crusade", "bbq", "lifeguard", "fisherman", "IT"]
-  var work = workTypes[Math.floor(Math.random() * workTypes.length)];
-
-  var workInfo = require("../assets/work.json")
-
-  var messageToSend = (workInfo[work].message)
-  var messageToSend = messageToSend.toString().replace("{user}", message.member.displayName).replace("{pointName}", settings.pointName)
-  var ammount = workInfo[work].points
-  pay(ammount);
-  message.channel.send(messageToSend)
-  return
-
-
 
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [],
+  aliases: ["reset-work", "reset-earnings", "bail", "workagain", "work-again", "earnagain", "earn-again"],
   permLevel: "User"
 };
 
 exports.help = {
-  name: "work",
+  name: "resetwork",
   category: "Money",
-  description: "Work hard for the money.",
-  usage: "work"
+  description: "Used to reset the earning cooldown for 5 Glix",
+  usage: "resetwork"
 };

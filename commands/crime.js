@@ -26,7 +26,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var timeDiff = nowTime - workTime
     var cooldown = (1800000 - timeDiff)
     var cooldownProper = millisToMinutesAndSeconds(cooldown)
-    return message.reply(`you must wait ~${cooldownProper} to commit another crime!`)
+    return message.reply(`you must wait ~${cooldownProper} to commit another crime!\nYou can pay your 5 ${client.config.pointName} bypass and reset your cooldown, buy typing ${serverSettings.prefix}earn-again`)
     //return message.reply(`you must wait ~${cooldown.toString().slice(0, 4)} minutes to play again!`)
   }
 
@@ -59,7 +59,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var messageToSend = (crimesAndFails.fail[fail])
     var messageToSend = messageToSend.toString().replace("{user}", message.member.displayName)
     pay(0);
-    message.channel.send(messageToSend)
+    message.channel.send(messageToSend + `\nYou can pay your 5 ${client.config.pointName} bail and reset your cooldown, buy typing ${serverSettings.prefix}bail`)
     return;
   }
 
