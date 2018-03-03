@@ -1,4 +1,4 @@
-var version = "10.2.2";
+var version = "10.2.3";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -172,7 +172,7 @@ function mixerCheck() {
       if (!error && response.statusCode == 200) { //if there is no error checking
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
-        console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+        // console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
         ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the bam info JSON says they are live
@@ -201,6 +201,8 @@ function mixerCheck() {
       }
     });
   }
+  console.log(chalk.cyan(`Now stalking ${streamerCount} streamers on Mixer`)); //logs that the bot is watching for the streamer to go live
+
 }
 const delay = require("delay");
 delay(30000).then(() => {
@@ -218,8 +220,9 @@ for (t = 0; t < streamerCountTwitch; t++) {
   var bootTime = (new Date).getTime(); //get the time the bot booted up
   var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
   // fs.writeFile("./user_time_twitch/" + streamersTwitch[t] + "_time.txt", halfHourAgo);
-  console.log(chalk.magenta("Now stalking " + streamersTwitch[t] + " on Twitch!"));
+  // console.log(chalk.magenta("Now stalking " + streamersTwitch[t] + " on Twitch!"));
 }
+console.log(chalk.magenta(`Now stalking ${streamerCountTwitch} streamers on Twitch!`));
 
 function twitchCheck() {
   console.log(chalk.magenta("Checking Twitch!"));
