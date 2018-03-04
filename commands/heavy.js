@@ -29,11 +29,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   }
 
   let msg
-  msg = await message.channel.send(`<a:loading:417323455147540490> ${target.username} is being painted...`);
+  msg = await message.channel.send(`<a:loading:417323455147540490> ${target.username} is dancing in Pyro Land...`);
 
   await message.channel.send(new Attachment(
-    await client.idiotAPI.bobRoss(target.displayAvatarURL),
-    "bobross.png"));
+    await client.idiotAPI.heavyFear(target.displayAvatarURL),
+    "heavyfear.png"));
 
   var userInfo = client.userInfo.get(message.author.id)
   var points = parseInt(client.userInfo.get(message.author.id).points)
@@ -48,13 +48,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["robboss"],
+  aliases: ["heavyfear", "fear"],
   permLevel: "User"
 };
 
 exports.help = {
-  name: "bobross",
+  name: "heavy",
   category: "Memes",
-  description: "Get a bobross image.",
-  usage: "bobross @Person"
+  description: "Get a heavy fear image.",
+  usage: "heavy @Person"
 };
