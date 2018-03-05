@@ -26,7 +26,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var timeDiff = nowTime - workTime
     var cooldown = (1800000 - timeDiff)
     var cooldownProper = millisToMinutesAndSeconds(cooldown)
-    return message.reply(`you must wait ~${cooldownProper} to work again!\nYou can pay your 5 ${client.config.pointName} bypass and reset your cooldown, buy typing ${serverSettings.prefix}earn-again`)
+    return message.reply(`you must wait ~${cooldownProper} to work again!\nYou can pay your 5 ${client.config.pointName} bypass and reset your cooldown, by typing ${serverSettings.prefix}earn-again`)
     //return message.reply(`you must wait ~${cooldown.toString().slice(0, 4)} minutes to play again!`)
   }
 
