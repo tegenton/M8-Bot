@@ -15,25 +15,25 @@ module.exports = (client, message) => {
     client.settings.get(message.guild.id) :
     client.config.defaultSettings;
 
-    var defaultUser = {
-      points: 10,
-      workTime: 0,
-      gameTime: 0,
-      inventory: {}
+  var defaultUser = {
+    points: 10,
+    workTime: 0,
+    gameTime: 0,
+    inventory: {},
+    id: message.author.id
+  }
+
+  if (client.userInfo.get(message.author.id) == null) {
+    client.userInfo.set(message.author.id, defaultUser); //add them to the database
+  } else {
+    var userData = client.userInfo.get(message.author.id)
+    if (!userData.id) {
+      userData.id = message.author.id
     }
-
-    if (client.userInfo.get(message.author.id) == null){
-      client.userInfo.set(message.author.id, defaultUser); //add them to the database
-    }
-
-    //const userInfo = client.userInfo.get(message.author.id)
+    client.userInfo.set(message.author.id, userData);
+  }
 
 
-    // else {
-    //   const newUserInfo = 1 + parseInt(client.userInfo.get(message.author.id))
-    //   client.userInfo.set(message.author.id, newUserInfo)
-    //   message.reply(newUserInfo)
-    // }
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.

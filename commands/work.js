@@ -36,7 +36,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     client.userInfo.set(message.author.id, userInfo)
   }
 
-  var workTypes = ["lawn", "clean", "prostitute", "lemonade", "sleep", "NASCAR", "crusade", "bbq", "lifeguard", "fisherman", "IT"]
+  var workTypes = ["lawn", "clean", "prostitute", "lemonade", "sleep", "NASCAR", "crusade", "bbq", "lifeguard", "fisherman", "IT", "milk", "babysitter", "bodypillow", "subway"]
   var work = workTypes[Math.floor(Math.random() * workTypes.length)];
 
   var workInfo = require("../assets/work.json")
