@@ -52,11 +52,11 @@
         "points": 5
     },
     "bodypillow": {
-        "message": "In their spare time, {user} makes and sells Nic Cage body pillows. They turned 8 {pointsName} in profit.",
+        "message": "In their spare time, {user} makes and sells Nic Cage body pillows. They turned 8 {pointName} in profit.",
         "points": 8
     },
     "subway": {
-        "message": "🎸🎸 Without a permit, {user} plays their guitar in the NYC subway and makes 5 {pointsName} in tips.",
+        "message": "🎸🎸 Without a permit, {user} plays their guitar in the NYC subway and makes 5 {pointName} in tips.",
         "points": 5
     }
 }
