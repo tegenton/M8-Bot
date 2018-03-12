@@ -51,7 +51,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
           userInfo.points = 0
           userInfo.gameTime = playTime;
           client.userInfo.set(message.author.id, userInfo)
-          return message.channel.send(`‼**BANG**‼ ${message.member.displayName} was unlucky. The bullet went straight through thair head.`)
+          return message.channel.send(`‼**BANG**‼ ${message.member.displayName} was unlucky. The bullet went straight through their head.`)
         } else { //if won
           var randomG = Math.floor(Math.random() * 100) + 1;
           userInfo.points = points + randomG
