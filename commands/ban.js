@@ -28,6 +28,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     return message.reply("unable to ban the user, please try again later."), console.log(err);
   });
 
+  if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()) {
+    return
+  }
+
   message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
     embed: banEmbed
   }).catch(err => console.log(err));

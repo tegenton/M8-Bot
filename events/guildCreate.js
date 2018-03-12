@@ -11,7 +11,7 @@ module.exports = (client, guild) => {
 
   console.log("I just joined a new server called " + guild.name);
 
-  // discordbots_org
+  // discordbots.org
   new fetch("POST", `https://discordbots.org/api/bots/${client.user.id}/stats`)
     .set("Authorization", settings.discordbots_org)
     .send({
@@ -33,7 +33,8 @@ module.exports = (client, guild) => {
     .setTimestamp()
     .setThumbnail(guild.iconURL)
     .addField("Members", guild.memberCount, true)
-    .addField("Owner", guild.owner, true);
+    .addField("Owner", guild.owner, true)
+    .addField("Guild ID", guild.id, true)
   client.channels.get("352990232624496641").sendEmbed(joinedEmbed);
 
   // if (!guild.channels.first()) {

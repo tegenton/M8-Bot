@@ -23,6 +23,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     embed: warnEmbed
   });
 
+  if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()){
+    return
+  }
+
   message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
     embed: warnEmbed
   }).catch(err => console.log(err));

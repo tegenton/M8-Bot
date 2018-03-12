@@ -20,15 +20,19 @@ module.exports = (client, message) => {
     workTime: 0,
     gameTime: 0,
     inventory: {},
-    id: message.author.id
+    id: message.author.id,
+    blames: 0
   }
 
-  if (client.userInfo.get(message.author.id) == null) {
+  if (client.userInfo.get(message.author.id) == null) { //if they are not in the database
     client.userInfo.set(message.author.id, defaultUser); //add them to the database
-  } else {
+  } else { //if they are in the database, make sure they have new stuff
     var userData = client.userInfo.get(message.author.id)
     if (!userData.id) {
       userData.id = message.author.id
+    }
+    if (!userData.blames) {
+      userData.blames = 0
     }
     client.userInfo.set(message.author.id, userData);
   }
@@ -73,10 +77,6 @@ module.exports = (client, message) => {
     }
   }
 
-  // if (message.content = "pie") {
-  //   message.reply(`my prefix is ${settings.prefix}`)
-  //   return
-  // }
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
