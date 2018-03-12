@@ -56,7 +56,7 @@ exports.run = (client, message) => {
               //console.log(timeDiff);
               if (timeDiff >= halfHour) { //if its been 30min or more
                 console.log(mixerInfo.token + " went live, as its been more than 30min!"); //log that they went live
-                const hook = new Discord.WebhookClient(hookID[0], hookID[1]); //sets info about a webhook
+                const hook = new Discord.WebhookClient(client.config.liveID, client.config.liveID); //sets info about a webhook
                 hook.sendMessage("live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
               }
               if (timeDiff < halfHour) { //if its been less than 30min
