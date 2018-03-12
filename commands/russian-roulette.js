@@ -27,7 +27,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     return message.reply(`you must wait ~${cooldownProper} to play again!`)
     //return message.reply(`you must wait ~${cooldown.toString().slice(0, 4)} minutes to play again!`)
   }
-  if (points << 50) {
+  if (points < 50) {
     return message.reply(`you neet at least 50 ${client.config.pointName} to play Russian Roulette!`)
   }
 
