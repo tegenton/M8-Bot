@@ -11,7 +11,8 @@ exports.run = (client, message) => {
     .addField("ID", message.author.id, true)
     .addField("Bot", message.author.bot, true)
     .addField("Registered", message.author.createdAt)
-    .addField(settings.pointName, client.userInfo.get(message.author.id).points)
+    .addField(settings.pointName, client.userInfo.get(message.author.id).points, true)
+    .addField("Blames", client.userInfo.get(message.author.id).blames, true)
   message.channel.send({
     embed: meEmbed
   });

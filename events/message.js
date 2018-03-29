@@ -19,7 +19,10 @@ module.exports = (client, message) => {
     points: 10,
     workTime: 0,
     gameTime: 0,
-    inventory: {},
+    inventory: {
+      lootBoxes: 1,
+      creatures: {}
+    },
     id: message.author.id,
     blames: 0
   }
@@ -33,6 +36,12 @@ module.exports = (client, message) => {
     }
     if (!userData.blames) {
       userData.blames = 0
+    }
+    if (!userData.inventory.lootBoxes) {
+      userData.inventory.lootBoxes = 1
+    }
+    if (!userData.inventory.creatures) {
+      userData.inventory.creatures = {}
     }
     client.userInfo.set(message.author.id, userData);
   }
