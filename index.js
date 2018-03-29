@@ -1,4 +1,4 @@
-var version = "10.6";
+var version = "10.6.1";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -161,7 +161,7 @@ var halfHour = 1800000; //time in milis that is 30min
 var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");
 var streamerCount = streamers.length;
 
- mixerCheck() {
+function mixerCheck() {
   for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
     var halfHour = 1800000; //time in milis that is 30min
     var bootTime = (new Date).getTime(); //get the time the bot booted up
