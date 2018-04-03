@@ -61,6 +61,8 @@ exports.run = (client, message) => {
 
 
                 var liveTime = (new Date).getTime();
+                var streamStartTime = new Date(twitchInfo.stream.created_at);
+                var streamStartMS = streamStartTime.getTime();
                 if (liveTime - streamStartMS < 1800000) {
                   console.log(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!");
                   fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
