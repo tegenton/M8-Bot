@@ -1,6 +1,6 @@
 exports.run = (client, message) => {
   message.delete();
-  var input = message.content.replace("!ascii ", "");
+  var input = message.content.replace(client.settings.get(message.guild.id).prefix + "ascii ", "");
   var request = require("request");
   request("https://artii.herokuapp.com/make?text=" + input, function(error, response, body) {
     if (!error && response.statusCode == 200) {
