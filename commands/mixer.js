@@ -1,6 +1,9 @@
 exports.run = (client, message) => {
   message.delete();
-  var mixer = message.content.replace("!mixer ", "")
+  const settings = client.settings.get(message.guild.id);
+
+  var mixer = message.content.replace(settings.prefix + "mixer ", "")
+  
   var request = require("request"); //the var to request details on the streamer
   request("https://mixer.com/api/v1/channels/" + mixer, function(error, response, body) { //set info for the streamer in JSON
     if (!error && response.statusCode == 200) { //if there is no error checking
