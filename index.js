@@ -1,4 +1,4 @@
-var version = "10.7.2";
+var version = "10.7.3";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -268,38 +268,38 @@ setInterval(twitchCheck, 120000); //run the check every 2min
 
 //End Twitch
 
-const DBL = require("dblapi.js");
-const dbl = new DBL(client.config.discordbots_org);
-// console.log(dbl.getVotes(true))
-// dbl.getVotes(true)
-dbl.getVotes(true, 1).then(votes => {
-  // Do something with the votes
-  console.log(votes)
-})
+// const DBL = require("dblapi.js");
+// const dbl = new DBL(client.config.discordbots_org);
+// // console.log(dbl.getVotes(true))
+// // dbl.getVotes(true)
+// dbl.getVotes(true, 1).then(votes => {
+//   // Do something with the votes
+//   console.log(votes)
+// })
 
-function getDBLVotes() {
-  dbl.getVotes(true, 1).then(votes => {
-    // Do something with the votes
-    console.log("Checking DBL votes")
-    for (p = 0; p < votes.length; p++) {
-      var voterInfo = client.userInfo.get(votes[p])
-      var points = parseInt(client.userInfo.get(votes[p]).points)
-      voterInfo.points = points + 5;
-      client.userInfo.set(voter[p], voterInfo)
-    }
-  })
-}
+// function getDBLVotes() {
+//   dbl.getVotes(true, 1).then(votes => {
+//     // Do something with the votes
+//     console.log("Checking DBL votes")
+//     for (p = 0; p < votes.length; p++) {
+//       var voterInfo = client.userInfo.get(votes[p])
+//       var points = parseInt(client.userInfo.get(votes[p]).points)
+//       voterInfo.points = points + 5;
+//       client.userInfo.set(voter[p], voterInfo)
+//     }
+//   })
+// }
 
-var schedule = require('node-schedule');
+// var schedule = require('node-schedule');
 
-var voteCheck = new schedule.RecurrenceRule();
-voteCheck.hour = 18;
-voteCheck.hour = 0;
+// var voteCheck = new schedule.RecurrenceRule();
+// voteCheck.hour = 18;
+// voteCheck.hour = 0;
 
 
-var j = schedule.scheduleJob(voteCheck, function () {
-  getDBLVotes()
-  //console.log("Ran on time")
-});
+// var j = schedule.scheduleJob(voteCheck, function () {
+//   getDBLVotes()
+//   //console.log("Ran on time")
+// });
 
 //console.log(voteCheck.nextInvocation())
