@@ -1,4 +1,4 @@
-var version = "10.7.0";
+var version = "10.7.1";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -173,7 +173,7 @@ async function mixerCheck() {
       if (!error && response.statusCode == 200) { //if there is no error checking
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
-        console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+        // console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
         ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the bam info JSON says they are live
