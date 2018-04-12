@@ -1,4 +1,4 @@
-var version = "10.6.4";
+var version = "10.7.0";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -161,8 +161,9 @@ var halfHour = 1800000; //time in milis that is 30min
 var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");
 var streamerCount = streamers.length;
 
-function mixerCheck() {
+async function mixerCheck() {
   for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
+    await delay(100); //introduce an artifical lag in order not send too many requests at once.
     var halfHour = 1800000; //time in milis that is 30min
     var bootTime = (new Date).getTime(); //get the time the bot booted up
     var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
@@ -172,7 +173,7 @@ function mixerCheck() {
       if (!error && response.statusCode == 200) { //if there is no error checking
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
-        // console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+        console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
         ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the bam info JSON says they are live
