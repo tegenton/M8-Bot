@@ -1,4 +1,4 @@
-var version = "10.8.0";
+var version = "10.8.1";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -212,7 +212,7 @@ delay(30000).then(() => {
 
 
 //Start Twitch
-var streamersTwitch = fs.readFileSync("./twitch.txt", "utf-8").split(", ");
+var streamersTwitch = fs.readFileSync("./twitchStreamers.txt", "utf-8").split(", ");
 var streamerCountTwitch = streamersTwitch.length;
 
 for (t = 0; t < streamerCountTwitch; t++) {
