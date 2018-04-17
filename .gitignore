@@ -287,3 +287,10 @@ data/settings/LOG
 data/settings/MANIFEST-000203
 
 data/settings/000206.ldb
+
+mixerStreamers.txt
+twitchStreamers.txt
+/mixer
+/mixer_time
+/twitch
+/twitch_time

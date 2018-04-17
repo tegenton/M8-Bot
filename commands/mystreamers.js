@@ -1,7 +1,7 @@
 exports.run = (client, message) => {
   message.delete();
-  var userDirMixer = __dirname.replace("commands", "users");
-  var userDirTwitch = __dirname.replace("commands", "users_twitch");
+  var userDirMixer = __dirname.replace("commands", "mixer");
+  var userDirTwitch = __dirname.replace("commands", "twitch");
 
   const streamerFolderMixer = userDirMixer;
   const streamerFolderTwitch = userDirTwitch;

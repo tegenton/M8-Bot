@@ -1,16 +1,13 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
   require('discord.js-aliases');
-  var userDir = __dirname.replace("commands", "users_twitch");
+  var userDir = __dirname.replace("commands", "twitch");
   var rootDir = __dirname.replace("commands", "");
-  var timeDir = __dirname.replace("commands", "user_time_twitch");
+  var timeDir = __dirname.replace("commands", "twitch_time");
   var fs = require("fs");
   const settings = require(rootDir + "/config.js");
 
 
-  // if ((message.content.startsWith("!live-test-twitch") && message.author.id == "401967977228009473") || //if the bot sends the message
-  //   (message.content.startsWith("!live-test-twitch") && message.author.id == "145367010489008128" && message.channel.id == "278706855545405451") || //if comixs sends the message (and in certian chat)
-  //   (message.content.startsWith("!live-test-twitch") && message.author.id == "161556067954720768" && message.channel.id == "401967908739088384")) { //if evil sends the message (and in certian chat)
   const args = message.content.split(" ").slice(1); //seperate command into args
   const twitch = args[0]; //twitch name is arg 0
   if (fs.existsSync(userDir + "/" + twitch + ".txt")) { //varifies that the streamer is on record
@@ -22,9 +19,6 @@ exports.run = (client, message) => {
           var game = "[API ERROR]"; //set the game to the meme game
         } else { //if there is a game set
           var game = twitchInfo.game; //set the game var to the streamer's game
-          // if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-          //   var game = "PUBG"
-          // }
         }
         const liveEmbed = new Discord.RichEmbed() //start the embed message template
           .setTitle("Test for " + twitchInfo.display_name + "\'s Stream")

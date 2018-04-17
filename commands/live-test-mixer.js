@@ -1,18 +1,16 @@
 exports.run = (client, message) => {
   const Discord = require("discord.js");
   require('discord.js-aliases');
-  var userDir = __dirname.replace("commands", "users");
+  var userDir = __dirname.replace("commands", "mixer");
   var fs = require("fs");
   const serverSettings = client.settings.get(message.guild.id);
 
-  // if ((message.content.startsWith(serverSettings.prefix + "live-test") && message.author.id == "401967977228009473") || //if the bot sends the message
-  //   (message.content.startsWith(serverSettings.prefix + "live-test") && message.author.id == "145367010489008128" && message.channel.id == "401967908739088384") || //if comixs sends the message (and in certian chat)
-  //   (message.content.startsWith(serverSettings.prefix + "live-test") && message.author.id == "161556067954720768" && message.channel.id == "401967908739088384")) { //if evil sends the message (and in certian chat)
+
   const args = message.content.split(" ").slice(1); //seperate command into args
   const mixer = args[0]; //mixer name is arg 0
   if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
     var request = require("request"); //sets a var to request info
-    request("https://mixer.com/api/v1/channels/" + mixer, function(error, response, body) { //request streamer's in in JSON form
+    request("https://mixer.com/api/v1/channels/" + mixer, function (error, response, body) { //request streamer's in in JSON form
       if (!error && response.statusCode == 200) { //if there is no error
         var mixerInfo = JSON.parse(body); //sets mixerInfo to the JSON data
         if (mixerInfo.type == null) { //if there is no game set to the stream
@@ -39,9 +37,6 @@ exports.run = (client, message) => {
           }
         } else { //if there is a game set
           var game = mixerInfo.type.name; //set the game var to the streamer's game
-          // if (game = "PLAYERUNKNOWN'S BATTLEGROUNDS") {
-          //   var game = "PUBG"
-          // }
           const liveEmbed = new Discord.RichEmbed() //start the embed message template
             .setTitle("Test for " + mixerInfo.token + "\'s Stream")
             .setAuthor(mixerInfo.name)
@@ -78,9 +73,9 @@ exports.conf = {
 };
 
 exports.help = {
-  name: "live-test",
+  name: "live-test-mixer",
   description: "Send a test announcement.",
-  usage: "live-test ___"
+  usage: "live-test-mixer ___"
 };
 
 //.setDescription("Hey guys this is a test for, " + mixer + "'s stream. This was requested by either a server owner, or " + mixer + ".")

@@ -2,20 +2,19 @@ exports.run = (client, message) => {
   const Discord = require("discord.js");
   require('discord.js-aliases');
   var fs = require("fs");
-  var userDir = __dirname.replace("commands", "users");
+  var userDir = __dirname.replace("commands", "mixer");
   var rootDir = __dirname.replace("commands", "");
-  var timeDir = __dirname.replace("commands", "user_time");
+  var timeDir = __dirname.replace("commands", "mixer_time");
   const settings = require(rootDir + "/config.js");
 
 
-
-  if ((message.content.startsWith("!live") && message.author.id == settings.liveID) || //if the bot sends the message
-    (message.content.startsWith("!live") && message.author.id == "145367010489008128" && message.channel.id == "275344557674201089")) { //if comixs sends the message (and in certian chat)
+  // if ((message.content.startsWith("~live") && message.author.id == settings.liveID) || //if the bot sends the message
+  //   (message.content.startsWith("~live") && message.author.id == "145367010489008128" && message.channel.id == "275344557674201089")) { //if comixs sends the message (and in certian chat)
     const args = message.content.split(" ").slice(1); //seperate command into args
     const mixer = args[0]; //mixer name is arg 0
     if (fs.existsSync(userDir + "/" + mixer + ".txt")) { //varifies that the streamer is on record
       var request = require("request"); //sets a var to request info
-      request("https://mixer.com/api/v1/channels/" + mixer, function(error, response, body) { //request streamer's in in JSON form
+      request("https://mixer.com/api/v1/channels/" + mixer, function (error, response, body) { //request streamer's in in JSON form
         if (!error && response.statusCode == 200) { //if there is no error
           var mixerInfo = JSON.parse(body); //sets mixerInfo to the JSON data
           if (mixerInfo.type == null) { //if there is no game set to the stream
@@ -98,18 +97,18 @@ exports.run = (client, message) => {
         }
       });
     }
-  }
+  // }
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: 0
+  permLevel: "Bot Support"
 };
 
 exports.help = {
-  name: "live",
+  name: "live-mixer",
   description: "Force a live announcement.",
   usage: "live ___"
 };

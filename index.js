@@ -1,4 +1,4 @@
-var version = "10.7.4";
+var version = "10.8.0";
 module.exports.version = version;
 
 // This will check if the node version you are running is the required
@@ -109,8 +109,8 @@ const init = async () => {
 init();
 
 const fs = require("fs");
-const streamerFolderMixer = "./users";
-const streamerFolderTwitch = "./users_twitch";
+const streamerFolderMixer = "./mixer";
+const streamerFolderTwitch = "./twitch";
 
 function loadStreamers() {
 
@@ -119,14 +119,13 @@ function loadStreamers() {
       var files = file;
     });
     var fileCount = files.length;
-    //var myStreamersMixer = "Current **Mixer** Streamer List:\n"
     var allMixer = "";
     for (i = 0; i < fileCount; i++) {
       var name = files[i].replace(".txt", ", ");
       var allMixer = allMixer + name;
     }
     //console.log(allMixer)
-    fs.writeFile("./streamers.txt", allMixer.replace(".DS_Store", ""));
+    fs.writeFile("./mixerStreamers.txt", allMixer.replace(".DS_Store", ""));
   });
 
   fs.readdir(streamerFolderTwitch, (err, files) => {
@@ -140,7 +139,7 @@ function loadStreamers() {
       var allTwitch = allTwitch + name;
     }
     //console.log(allMixer)
-    fs.writeFile("./streamersTwitch.txt", allTwitch.replace(".DS_Store", ""));
+    fs.writeFile("./twitchStreamers.txt", allTwitch.replace(".DS_Store", ""));
   });
 }
 
@@ -158,18 +157,17 @@ loadStreamers();
 var halfHour = 1800000; //time in milis that is 30min
 
 //Start Mixer -----------------------------------------------------------------------------------------
-var streamers = fs.readFileSync("./streamers.txt", "utf-8").split(", ");
-var streamerCount = streamers.length;
+var mixerStreamers = fs.readFileSync("./mixerStreamers.txt", "utf-8").split(", ");
+var mixerStreamerCount = mixerStreamers.length;
 
 function mixerCheck() {
-  for (i = 0; i < streamerCount; i++) { //Run for the # of streamers
+  for (i = 0; i < mixerStreamerCount; i++) { //Run for the # of streamers
     delay(10); //introduce an artifical lag in order not send too many requests at once.
     var halfHour = 1800000; //time in milis that is 30min
     var bootTime = (new Date).getTime(); //get the time the bot booted up
     var halfHourAgo = bootTime - 1800000; //get the time 30min before the boot
-    // fs.writeFile("./user_time/" + streamers[i] + "_time.txt", halfHourAgo); //write a file with
     var request = require("request"); //the var to request details on the streamer
-    request("https://mixer.com/api/v1/channels/" + streamers[i], function (error, response, body) { //ste info for the streamer in JSON
+    request("https://mixer.com/api/v1/channels/" + mixerStreamers[i], function (error, response, body) { //set info for the streamer in JSON
       if (!error && response.statusCode == 200) { //if there is no error checking
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
@@ -178,16 +176,16 @@ function mixerCheck() {
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the bam info JSON says they are live
             var liveTime = (new Date).getTime(); //time the bot sees they went live
-            if (!fs.existsSync("./user_time/" + mixerInfo.token + "_time.txt")) {
-              fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", "0")
+            if (!fs.existsSync("./mixer_time/" + mixerInfo.token + "_time.txt")) {
+              fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
             }
-            var lastLiveTime = fs.readFileSync("./user_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
+            var lastLiveTime = fs.readFileSync("./mixer_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
             var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
             //console.log(timeDiff);
             if (timeDiff >= halfHour) { //if its been 30min or more
               console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
-              hook.sendMessage("!live " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
+              hook.sendMessage("!live-mixer " + mixerInfo.token); //tells the webhook to send a message to a private channel that M8Bot is listening to
 
 
 
@@ -196,13 +194,13 @@ function mixerCheck() {
             if (timeDiff < halfHour) { //if its been less than 30min
               console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
             }
-            fs.writeFile("./user_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
+            fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
           }
         });
       }
     });
   }
-  console.log(chalk.cyan(`Now stalking ${streamerCount} streamers on Mixer`)); //logs that the bot is watching for the streamer to go live
+  console.log(chalk.cyan(`Now stalking ${mixerStreamerCount} streamers on Mixer`)); //logs that the bot is watching for the streamer to go live
 
 }
 const delay = require("delay");
@@ -214,7 +212,7 @@ delay(30000).then(() => {
 
 
 //Start Twitch
-var streamersTwitch = fs.readFileSync("./streamersTwitch.txt", "utf-8").split(", ");
+var streamersTwitch = fs.readFileSync("./twitch.txt", "utf-8").split(", ");
 var streamerCountTwitch = streamersTwitch.length;
 
 for (t = 0; t < streamerCountTwitch; t++) {
@@ -229,10 +227,10 @@ function twitchCheck() {
   console.log(chalk.magenta("Checking Twitch!"));
   for (tc = 0; tc < streamersTwitch.length; tc++) {
     var liveTime = (new Date).getTime();
-    if (!fs.existsSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt")) {
-      fs.writeFile("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "0")
+    if (!fs.existsSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt")) {
+      fs.writeFile("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "0")
     }
-    var lastLiveTime = fs.readFileSync("./user_time_twitch/" + streamersTwitch[tc] + "_time.txt", "utf-8");
+    var lastLiveTime = fs.readFileSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "utf-8");
     var timeDiff = liveTime - lastLiveTime;
     if (timeDiff >= halfHour) { //if its been 30min or more
       var request = require("request"); //the var to request details on the streamer
@@ -248,7 +246,7 @@ function twitchCheck() {
             var streamStartMS = streamStartTime.getTime();
             if (liveTime - streamStartMS < 1800000) {
               console.log(chalk.magenta(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
-              fs.writeFile("./user_time_twitch/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+              fs.writeFile("./twitch_time/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
               //console.log(twitchInfo)
@@ -267,39 +265,3 @@ delay(60000).then(() => {
 setInterval(twitchCheck, 120000); //run the check every 2min
 
 //End Twitch
-
-// const DBL = require("dblapi.js");
-// const dbl = new DBL(client.config.discordbots_org);
-// // console.log(dbl.getVotes(true))
-// // dbl.getVotes(true)
-// dbl.getVotes(true, 1).then(votes => {
-//   // Do something with the votes
-//   console.log(votes)
-// })
-
-// function getDBLVotes() {
-//   dbl.getVotes(true, 1).then(votes => {
-//     // Do something with the votes
-//     console.log("Checking DBL votes")
-//     for (p = 0; p < votes.length; p++) {
-//       var voterInfo = client.userInfo.get(votes[p])
-//       var points = parseInt(client.userInfo.get(votes[p]).points)
-//       voterInfo.points = points + 5;
-//       client.userInfo.set(voter[p], voterInfo)
-//     }
-//   })
-// }
-
-// var schedule = require('node-schedule');
-
-// var voteCheck = new schedule.RecurrenceRule();
-// voteCheck.hour = 18;
-// voteCheck.hour = 0;
-
-
-// var j = schedule.scheduleJob(voteCheck, function () {
-//   getDBLVotes()
-//   //console.log("Ran on time")
-// });
-
-//console.log(voteCheck.nextInvocation())
