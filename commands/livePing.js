@@ -16,7 +16,7 @@ exports.run = (client, message) => {
   if (option.toString().toLowerCase() == "off") {
     serverSettings.livePing = false
     client.settings.set(message.guild.id, serverSettings)
-    message.reply(`the live ping has been enabled.`)
+    message.reply(`the live ping has been disabled.`)
     return;
   }
   if (option.toString().toLowerCase() == "on") {
