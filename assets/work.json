@@ -8,7 +8,7 @@
         "points": 5
     },
     "prostitute": {
-        "message": "The sexy {user} just sold their body for a whoping 10 {pointName}.",
+        "message": "The sexy {user} just sold their body for a whopping 10 {pointName}.",
         "points": 10
     },
     "sleep": {
@@ -40,7 +40,7 @@
         "points": 3
     },
     "IT": {
-        "message": "💻💻 Because {user}'s neighbors cant use Google, their neighbors payed them 4 {pointName} for helping them.",
+        "message": "💻💻 Because {user}'s neighbors can't use Google, their neighbors paid them 4 {pointName} for helping them.",
         "points": 4
     },
     "milk": {
