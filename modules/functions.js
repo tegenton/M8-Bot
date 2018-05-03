@@ -169,20 +169,25 @@ module.exports = (client) => {
 
               if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
 
-                var liveMessage = "";
-                var guildID = client.channels.get(serversAllowed[i]).guild.id
-                var serverSettings = client.getSettings(guildID);
-                if (!serverSettings.livePing || serverSettings.livePing == "true") {
-                  console.log("liveping is on")
-                  var liveMessage = liveMessage + "@here, "
-                }
-                if (!serverSettings.liveMixerMessage) {
-                  var liveMessage = liveMessage + mixer + " is now live on Mixer!"
-                } else {
-                  var liveMessage = liveMessage + serverSettings.liveMixerMessage.replace("{{streamer}}", mixer)
+                sendMixer = async (channelID) => {
+                  var liveMessage = "";
+                  var guildID = client.channels.get(channelID).guild.id
+                  const settings = await client.getSettings(guildID);
+                  if (!settings.livePing || settings.livePing == "true") {
+                    console.log("liveping is on")
+                    var liveMessage = liveMessage + "@here, "
+                  }
+                  if (!settings.liveMixerMessage) {
+                    var liveMessage = liveMessage + mixer + " is now live on Mixer!"
+                  } else {
+                    var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
+                  }
+
+                  client.channels.get(channelID).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
                 }
 
-                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
+                sendMixer(serversAllowed[i])
+
               }
             }
           } else { //if there is a game set
@@ -208,18 +213,23 @@ module.exports = (client) => {
             var serversAllowed = serversAllowedRaw.split(", "); //splits the servers into individual strings
             for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
               if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
-                var liveMessage = "";
-                var guildID = client.channels.get(serversAllowed[i]).guild.id
-                const settings = client.getSettings(guildID);
-                if (!settings.livePing || settings.livePing == "true") {
-                  var liveMessage = liveMessage + "@here, "
+                sendMixer = async (channelID) => {
+                  var liveMessage = "";
+                  var guildID = client.channels.get(channelID).guild.id
+                  const settings = await client.getSettings(guildID);
+                  if (!settings.livePing || settings.livePing == "true") {
+                    var liveMessage = liveMessage + "@here, "
+                  }
+                  if (!settings.liveMixerMessage) {
+                    var liveMessage = liveMessage + mixer + " is now live on Mixer!"
+                  } else {
+                    var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
+                  }
+
+                  client.channels.get(channelID).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
                 }
-                if (!settings.liveMixerMessage) {
-                  var liveMessage = liveMessage + mixer + " is now live on Mixer!"
-                } else {
-                  var liveMessage = liveMessage + settings.liveMixerMessage.replace("{{streamer}}", mixer)
-                }
-                client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
+
+                sendMixer(serversAllowed[i])
               }
             }
 
@@ -271,18 +281,25 @@ module.exports = (client) => {
           for (i = 0; i < serversAllowed.length; i++) { //run for the total number of servers they are allowed on
             if (client.channels.map(c => c.id).includes(serversAllowed[i])) {
 
-              var liveMessage = "";
-              var guildID = client.channels.get(serversAllowed[i]).guild.id
-              const settings = client.getSettings(guildID);
-              if (!settings.livePing || settings.livePing == "true") {
-                var liveMessage = liveMessage + "@here, "
+              sendTwitch = async (channelID) => {
+                var liveMessage = "";
+                var guildID = client.channels.get(channelID).guild.id
+                const settings = await client.getSettings(guildID);
+                // const settings = client.settings.get(guildID).getField("settings").run();
+                if (!settings.livePing || settings.livePing == "true") {
+                  var liveMessage = liveMessage + "@here, "
+                }
+                if (!settings.liveTwitchMessage) {
+                  var liveMessage = liveMessage + twitchInfo.display_name + " is now live on Twitch!"
+                } else {
+                  var liveMessage = liveMessage + settings.liveTwitchMessage.replace("{{streamer}}", twitchInfo.display_name)
+                }
+                client.channels.get(channelID).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
               }
-              if (!settings.liveTwitchMessage) {
-                var liveMessage = liveMessage + twitchInfo.display_name + " is now live on Twitch!"
-              } else {
-                var liveMessage = liveMessage + settings.liveTwitchMessage.replace("{{streamer}}", twitchInfo.display_name)
-              }
-              client.channels.get(serversAllowed[i]).sendEmbed(liveEmbed, liveMessage); //send the live message to servers
+
+              sendTwitch(serversAllowed[i])
+
+
             }
           }
         }
