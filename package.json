@@ -1,5 +1,5 @@
 {
-  "name": "M8Bot",
+  "name": "m8bot",
   "version": "7.4.1",
   "description": "Moderation, Fun & Music",
   "main": "index.js",
@@ -50,5 +50,14 @@
     "superagent": "^3.8.3",
     "ws": "^3.3.3",
     "ytdl-core": "^0.20.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MAPReiff/M8-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MAPReiff/M8-Bot/issues"
+  },
+  "homepage": "https://github.com/MAPReiff/M8-Bot#readme"
 }
