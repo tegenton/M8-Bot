@@ -1,11 +1,12 @@
-// This event executes when a guild (server) is left.
+// This event executes when a new guild (server) is left.
 const Discord = require("discord.js");
 
 var rootDir = __dirname.replace("events", "");
 const settings = require(rootDir + "./config.js");
-module.exports = (client, guild) => {
+
+module.exports = async (client, guild) => {
   // Well they're gone. Let's remove them from the settings!
-  client.settings.delete(guild.id);
+  await client.settings.get(guild.id).delete().run();
 
   const fetch = require("snekfetch");
 
@@ -32,5 +33,5 @@ module.exports = (client, guild) => {
     .addField("Members", guild.memberCount, true)
     .addField("Owner", guild.owner, true);
   client.channels.get("352990232624496641").sendEmbed(leftEmbed);
-
+  
 };

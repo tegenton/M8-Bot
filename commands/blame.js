@@ -13,17 +13,17 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     return message.channel.send(`Don't blame a bot! Its 100% the Dev's fault!`)
   }
 
-  var userInfo = client.userInfo.get(target.id)
+  const userInfo = await client.getUserInfo(target.id);
   if (!userInfo.blames) {
     var blames = 0
     userInfo.blames = 1
 
   } else {
-    var blames = parseInt(client.userInfo.get(target.id).blames)
+    var blames = parseInt(userInfo.blames)
     userInfo.blames = blames + 1;
   }
 
-  client.userInfo.set(target.id, userInfo)
+  client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
 
   message.channel.send(`${target.username} really screwed up! Infact, they screwed up **${blames + 1}** times!`)
 
@@ -31,7 +31,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
 exports.conf = {
   enabled: true,
-  guildOnly: false,
+  guildOnly: true,
   aliases: [],
   permLevel: "User"
 };

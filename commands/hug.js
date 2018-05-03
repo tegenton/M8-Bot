@@ -1,6 +1,6 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   message.delete();
-  const settings = client.settings.get(message.guild.id);
+  const settings = await client.getSettings(message.guild.id);
 
   if (message.content.startsWith(settings.prefix + "hugs ")) {
     var who = message.content.replace(settings.prefix + "hugs ", "")

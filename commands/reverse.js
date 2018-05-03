@@ -1,4 +1,4 @@
-exports.run = (client, message, args) => {
+exports.run = async (client, message, args) => {
   message.delete();
   if (args.length < 1) {
     message.reply("I can't reverse nothing... GIVE ME MORE!");

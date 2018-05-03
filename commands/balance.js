@@ -2,7 +2,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const Discord = require("discord.js");
   const settings = require("../config.js");
 
-  const serverSettings = client.settings.get(message.guild.id);
+  const serverSettings = await client.getSettings(message.guild.id);
   if (!serverSettings.moneyCommands) {
     serverSettings.moneyCommands = "on"
     client.settings.set(message.guild.id, serverSettings)
@@ -17,10 +17,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
   }
-  var userInfo = client.userInfo.get(message.author.id)
-  var points = parseInt(client.userInfo.get(message.author.id).points)
-  var gameTime = parseInt(client.userInfo.get(message.author.id).gameTime)
-  var workTime = parseInt(client.userInfo.get(message.author.id).workTime)
+  const userInfo = await client.getUserInfo(message.author.id);
+  var points = parseInt(userInfo.points)
+  var gameTime = parseInt(userInfo.gameTime)
+  var workTime = parseInt(userInfo.workTime)
   var nowTime = (new Date).getTime();
 
   var cooldownProperWork = `Can earn ${settings.pointName} now!`

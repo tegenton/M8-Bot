@@ -1,6 +1,6 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 
-  const serverSettings = client.settings.get(message.guild.id);
+  const serverSettings = await client.getSettings(message.guild.id);
   if (!serverSettings.moneyCommands) {
     serverSettings.moneyCommands = "on"
     client.settings.set(message.guild.id, serverSettings)
@@ -10,9 +10,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     }
   }
 
-  var userInfo = client.userInfo.get(message.author.id)
-  var points = parseInt(client.userInfo.get(message.author.id).points)
-  var gameTime = parseInt(client.userInfo.get(message.author.id).gameTime)
+  const userInfo = await client.getUserInfo(message.author.id);
+  var points = parseInt(userInfo.points)
+  var gameTime = parseInt(userInfo.gameTime)
   var playTime = (new Date).getTime();
 
   function millisToMinutesAndSeconds(millis) {
@@ -50,13 +50,13 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
         if (random === 0) { //if lost
           userInfo.points = 0
           userInfo.gameTime = playTime;
-          client.userInfo.set(message.author.id, userInfo)
+          client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
           return message.channel.send(`‼**BANG**‼ ${message.member.displayName} was unlucky. The bullet went straight through their head.`)
         } else { //if won
           var randomG = Math.floor(Math.random() * 100) + 1;
           userInfo.points = points + randomG
           userInfo.gameTime = playTime;
-          client.userInfo.set(message.author.id, userInfo)
+          client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
           return message.channel.send(`🍀🍀 ${message.member.displayName} was lucky. There was no bullet this time. They got ${randomG} ${client.config.pointName}`)
         }
 

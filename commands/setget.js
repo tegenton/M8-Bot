@@ -4,7 +4,7 @@ const {
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
   const settings = message.guild ?
-    client.settings.get(args[0]) :
+    await client.getSettings(message.guild.id) :
     client.config.defaultSettings;
 
   if (settings == undefined) {

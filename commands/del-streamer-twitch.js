@@ -1,4 +1,4 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   var fs = require("fs");
 
   var userDir = __dirname.replace("commands", "twitch");

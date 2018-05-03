@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const settings = client.settings.get(message.guild.id);
+  const settings = await client.getSettings(message.guild.id);
   //message.reply(args)
   Anime.fromName(args).then(anime => {
     //console.log(anime.title);

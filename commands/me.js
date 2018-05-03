@@ -1,7 +1,10 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   const Discord = require("discord.js");
   const settings = require("../config.js");
   message.delete();
+
+  const userInfo = await client.getUserInfo(message.author.id);
+  
   const meEmbed = new Discord.RichEmbed()
     .setTitle(message.author.username)
     .setColor(0x9900FF)
@@ -11,8 +14,8 @@ exports.run = (client, message) => {
     .addField("ID", message.author.id, true)
     .addField("Bot", message.author.bot, true)
     .addField("Registered", message.author.createdAt)
-    .addField(settings.pointName, client.userInfo.get(message.author.id).points, true)
-    .addField("Blames", client.userInfo.get(message.author.id).blames, true)
+    .addField(settings.pointName, userInfo.points, true)
+    .addField("Blames", userInfo.blames, true)
   message.channel.send({
     embed: meEmbed
   });

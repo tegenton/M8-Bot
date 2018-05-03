@@ -2,8 +2,12 @@
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
+
   const Discord = require("discord.js");
+
+
+
 
   // It's good practice to ignore other bots. This also makes your bot ignore itself
   // and not get into a spam loop (we call that "botception").
@@ -12,7 +16,7 @@ module.exports = (client, message) => {
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
   const settings = message.guild ?
-    client.settings.get(message.guild.id) :
+    await client.getSettings(message.guild.id) :
     client.config.defaultSettings;
 
   var defaultUser = {
@@ -27,65 +31,18 @@ module.exports = (client, message) => {
     blames: 0
   }
 
-  if (client.userInfo.get(message.author.id) == null) { //if they are not in the database
-    client.userInfo.set(message.author.id, defaultUser); //add them to the database
-  } else { //if they are in the database, make sure they have new stuff
-    var userData = client.userInfo.get(message.author.id)
-    if (!userData.id) {
-      userData.id = message.author.id
-    }
-    if (!userData.blames) {
-      userData.blames = 0
-    }
-    if (!userData.inventory.lootBoxes) {
-      userData.inventory.lootBoxes = 1
-    }
-    if (!userData.inventory.creatures) {
-      userData.inventory.creatures = {}
-    }
-    client.userInfo.set(message.author.id, userData);
+  const gl = await client.userInfo.get(message.author.id).run();
+  if (gl === null) {
+    await client.userInfo.insert({
+      "id": message.author.id,
+      "userInfo": defaultUser
+    });
   }
-
 
 
   // For ease of use in commands and functions, we'll attach the settings
   // to the message object, so `message.settings` is accessible.
   message.settings = settings;
-
-  // Banned words filter
-
-  if (settings.bannedWords != null) {
-    //message.reply(client.permlevel(message))
-    if (client.permlevel(message) <= "3") {
-      var badWords = settings.bannedWords.toString().toLowerCase().split(", ");
-      var sentMessage = message.content.toString().toLowerCase();
-      for (b = 0; b < badWords.length; b++) {
-        if (sentMessage.includes(badWords[b])) {
-          message.delete();
-          message.reply("the message you just sent contained a banned word on this server!");
-          if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()) {
-            return
-          } else {
-            const wordEmbed = new Discord.RichEmbed()
-              .setAuthor("M8 Bot Moderation")
-              .addField("Warned User", `${message.author} (${message.author.tag})`)
-              .addField("Message", sentMessage)
-              .addField("Reason", "Sent a banned word.")
-              .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
-              .setThumbnail(message.author.avatarURL)
-              .setTimestamp()
-              .setColor(0x9900FF);
-            message.guild.channels.filter(c => c.name === settings.modLogChannel).first().send({
-              embed: wordEmbed
-            }).catch(err => console.log(err));
-            return;
-          }
-
-        }
-      }
-    }
-  }
-
 
   // Also good practice to ignore any message that does not start with our prefix,
   // which is set in the configuration file.
@@ -148,6 +105,6 @@ module.exports = (client, message) => {
     message.flags.push(args.shift().slice(1));
   }
   // If the command exists, **AND** the user has permission, run it.
-  client.logger.cmd(`[CMD] ${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
+  client.log("log", `${client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, "CMD");
   cmd.run(client, message, args, level);
 };

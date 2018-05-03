@@ -1,13 +1,13 @@
-exports.run = (client, message) => {
-  message.delete();
-  if (message.content.startsWith("!define")) {
-    var term = message.content.replace("!define ", "");
+exports.run = async (client, message) => {
+  const settings = await client.getSettings(message.guild.id);
+  if (message.content.startsWith(settings.prefix + "define")) {
+    var term = message.content.replace(settings.prefix + "define ", "");
   }
-  if (message.content.startsWith("!urban")) {
-    var term = message.content.replace("!urban ", "");
+  if (message.content.startsWith(settings.prefix + "urban")) {
+    var term = message.content.replace(settings.prefix + "urban ", "");
   }
-  if (message.content.startsWith("!def")) {
-    var term = message.content.replace("!def ", "");
+  if (message.content.startsWith(settings.prefix + "def")) {
+    var term = message.content.replace(settings.prefix + "def ", "");
   }
   var request = require("request");
   request("http://api.scorpstuff.com/urbandictionary.php?term=" + term, function(error, response, body) {

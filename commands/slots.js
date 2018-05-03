@@ -76,7 +76,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   const settings = require("../config.js");
   const Discord = require("discord.js");
 
-  const serverSettings = client.settings.get(message.guild.id);
+  const serverSettings = await client.getSettings(message.guild.id);
   if (!serverSettings.moneyCommands) {
     serverSettings.moneyCommands = "on"
     client.settings.set(message.guild.id, serverSettings)
@@ -87,9 +87,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
   }
 
   // var userInfo = JSON.stringify(client.userInfo.get(message.author.id))
-  var userInfo = client.userInfo.get(message.author.id)
-  var points = parseInt(client.userInfo.get(message.author.id).points)
-  var gameTime = parseInt(client.userInfo.get(message.author.id).gameTime)
+  const userInfo = await client.getUserInfo(message.author.id);
+  var points = parseInt(userInfo.points)
+  var gameTime = parseInt(userInfo.gameTime)
   var playTime = (new Date).getTime();
 
   function millisToMinutesAndSeconds(millis) {
@@ -133,11 +133,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     if (results.winCount > 0) {
       userInfo.points = points + score;
       userInfo.gameTime = playTime;
-      client.userInfo.set(message.author.id, userInfo)
+      client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
     } else {
       userInfo.points = points - 1;
       userInfo.gameTime = playTime;
-      client.userInfo.set(message.author.id, userInfo)
+      client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
     }
 
     // if (results.winCount < 0) {

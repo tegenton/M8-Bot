@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     Attachment
   } = require("discord.js");
 
-  const settings = client.settings.get(message.guild.id);
+  const settings = await client.getSettings(message.guild.id);
   if (!settings.imageCommands) {
     settings.imageCommands = "on"
     client.settings.set(message.guild.id, settings)
@@ -15,10 +15,10 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
   const person = message.content.replace(client.config.prefix, "").split(" ").slice(1)
 
-  var userInfo = client.userInfo.get(message.author.id)
-  var points = parseInt(client.userInfo.get(message.author.id).points)
+  const userInfo = await client.getUserInfo(message.author.id);
+  var points = parseInt(userInfo.points)
 
-  if (points <= 0){
+  if (points <= 0) {
     return message.reply(`you do not have enough ${client.config.pointName} to buy a custom image.`)
   }
 
@@ -36,12 +36,11 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     await client.idiotAPI.superPunch(message.author.displayAvatarURL, target.displayAvatarURL),
     "superpunch.png"));
 
-    var userInfo = client.userInfo.get(message.author.id)
-    var points = parseInt(client.userInfo.get(message.author.id).points)
-    userInfo.points = points - 1;
-    client.userInfo.set(message.author.id, userInfo)
 
-    await msg.delete()
+  userInfo.points = points - 1;
+  client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
+
+  await msg.delete()
 
 };
 

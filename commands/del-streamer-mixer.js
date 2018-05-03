@@ -1,4 +1,4 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   var fs = require("fs");
   const Carina = require("carina").Carina;
   const ws = require("ws");

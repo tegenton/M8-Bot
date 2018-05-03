@@ -1,6 +1,6 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
 
-  const serverSettings = client.settings.get(message.guild.id);
+  const serverSettings = await client.getSettings(message.guild.id);
   if (!serverSettings.moneyCommands) {
     serverSettings.moneyCommands = "on"
     client.settings.set(message.guild.id, serverSettings)
@@ -10,9 +10,9 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     }
   }
 
-  var userInfo = client.userInfo.get(message.author.id)
-  var points = parseInt(client.userInfo.get(message.author.id).points)
-  var workTime = parseInt(client.userInfo.get(message.author.id).workTime)
+  const userInfo = await client.getUserInfo(message.author.id);
+  var points = parseInt(userInfo.points)
+  var workTime = parseInt(userInfo.workTime)
   var nowTime = (new Date).getTime();
 
   function millisToMinutesAndSeconds(millis) {
@@ -28,7 +28,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
     userInfo.points = points - 5;
     userInfo.workTime = 0;
-    client.userInfo.set(message.author.id, userInfo)
+    client.userInfo.get(message.author.id).update({ "userInfo": userInfo }).run();
 
     return message.reply(`you just spent 5 ${client.config.pointName} to reset your earning cooldown, which was ~${cooldownProper} long.`)
 

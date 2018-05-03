@@ -1,13 +1,15 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   message.delete();
-  if (message.content.startsWith("!lmgtfy")) {
-    var term = message.content.replace("!lmgtfy ", "");
+  const settings = await client.getSettings(message.guild.id);
+
+  if (message.content.startsWith(settings.prefix + "lmgtfy")) {
+    var term = message.content.replace(settings.prefix + "lmgtfy ", "");
   }
-  if (message.content.startsWith("!google")) {
-    var term = message.content.replace("!google ", "");
+  if (message.content.startsWith(settings.prefix + "google")) {
+    var term = message.content.replace(settings.prefix + "google ", "");
   }
-  if (message.content.startsWith("!search")) {
-    var term = message.content.replace("!search ", "");
+  if (message.content.startsWith(settings.prefix + "search")) {
+    var term = message.content.replace(settings.prefix + "search ", "");
   }
   var spaces = term.split(" ");
   var input = term.replace(" ", "+");

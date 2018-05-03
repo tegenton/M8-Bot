@@ -1,4 +1,4 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   const Discord = require("discord.js");
   message.delete();
   if (message.guild != null) {

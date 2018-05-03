@@ -1,4 +1,4 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   const Discord = require("discord.js");
   require('discord.js-aliases');
   var userDir = __dirname.replace("commands", "twitch");

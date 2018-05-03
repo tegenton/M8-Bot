@@ -1,13 +1,8 @@
 // This event executes when a new member joins a server. Let's welcome them!
 
-const {
-  Attachment
-} = require("discord.js");
-
-
 module.exports = async (client, member) => {
   // Load the guild's settings
-  const settings = client.settings.get(member.guild.id);
+  const settings = await client.getSettings(member.guild.id);
   var guild = member.guild;
 
   if (settings.defaultRoleEnabled == "true") {
@@ -21,7 +16,7 @@ module.exports = async (client, member) => {
     await member.guild.channels.find("name", settings.welcomeChannel).send(new Attachment(
       await client.idiotAPI.welcome("gearz", member.user.bot, member.user.displayAvatarURL, member.user.tag, `${member.guild.name}#${member.guild.memberCount}`),
       "welcome.png"));
-      return
+    return
   } else {
     // Replace the placeholders in the welcome message with actual data
     const welcomeMessage = settings.welcomeMessage.replace("{{user}}", member.user.tag).replace("{{serverName}}", member.guild.name).replace("{{memberCount}}", member.guild.memberCount);
@@ -29,8 +24,4 @@ module.exports = async (client, member) => {
     member.guild.channels.find("name", settings.welcomeChannel).send(welcomeMessage).catch(console.error);
     return
   }
-
-
-  // Send the welcome message to the welcome channel
-  // There's a place for more configs here.
 };

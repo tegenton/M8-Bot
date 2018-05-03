@@ -1,10 +1,9 @@
 //Requested by DragonWarrior
 
 
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   message.delete();
-  const settings = client.settings.get(message.guild.id);
-
+  const settings = await client.getSettings(message.guild.id);
   var who = message.content.replace(settings.prefix + "spank ", "")
 
   message.channel.send(message.author + " spanked " + who + " with a spiked paddle!");

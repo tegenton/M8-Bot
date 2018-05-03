@@ -1,4 +1,4 @@
-exports.run = (client, message) => {
+exports.run = async (client, message) => {
   const Discord = require("discord.js");
   require('discord.js-aliases');
   var fs = require("fs");
@@ -12,7 +12,7 @@ exports.run = (client, message) => {
   const twitch = args[0]; //twitch name is arg 0
   if (fs.existsSync(userDir + "/" + twitch + ".txt")) { //varifies that the streamer is on record
     var request = require("request"); //sets a var to request info
-    request("https://api.twitch.tv/kraken/channels/" + twitch + "?client_id=" + settings.twitch_id, function (error, response, body) { //request streamer's in in JSON form
+    request("https://api.twitch.tv/kraken/channels/" + twitch + "?client_id=" + settings.twitch_id, function(error, response, body) { //request streamer's in in JSON form
       if (!error && response.statusCode == 200) { //if there is no error
         var twitchInfo = JSON.parse(body); //sets twitchInfo to the JSON data
         if (twitchInfo.game == null) { //if there is no game set to the stream
@@ -42,7 +42,7 @@ exports.run = (client, message) => {
 
             var liveMessage = "";
             var guildID = client.channels.get(serversAllowed[i]).guild.id
-            const settings = client.settings.get(guildID);
+            const settings = client.getSettings(guildID);
             if (!settings.livePing || settings.livePing == "true") {
               var liveMessage = liveMessage + "@here, "
             }

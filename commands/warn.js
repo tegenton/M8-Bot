@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const settings = client.settings.get(message.guild.id);
+  const settings = await client.getSettings(message.guild.id);
   const person = message.content.replace(settings.prefix, "").split(" ").slice(1)
   //message.reply(person[0])
   if (message.mentions.members.size == 0 && person[0].isNumber != false) return message.reply("you must provide a mention in order to use this command.");
@@ -23,7 +23,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     embed: warnEmbed
   });
 
-  if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()){
+  if (!message.guild.channels.filter(c => c.name === settings.modLogChannel).first()) {
     return
   }
 

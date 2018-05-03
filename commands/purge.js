@@ -1,6 +1,5 @@
 exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
-  const settings = client.settings.get(message.guild.id);
-
+  const settings = await client.getSettings(message.guild.id);
   var count = message.content.replace(settings.prefix + "purge", "")
   if (message.guild.member(client.user).hasPermission(
       "MANAGE_MESSAGES"
