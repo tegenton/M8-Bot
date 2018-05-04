@@ -19,6 +19,21 @@ module.exports = (client) => {
       if (message.guild && currentLevel.guildOnly) continue;
       if (currentLevel.check(message)) {
         permlvl = currentLevel.level;
+        if (message.guild) {
+          if (!message.member) {
+            return;
+          }
+          if (message.member.hasPermission("ADMINISTRATOR")) {
+            if (permlvl < "3") {
+              permlvl = 3
+            }
+
+          }
+        }
+        else {
+          permlvl = permlvl
+        }
+
         break;
       }
     }
