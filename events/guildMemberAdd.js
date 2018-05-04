@@ -1,5 +1,9 @@
 // This event executes when a new member joins a server. Let's welcome them!
 
+const {
+  Attachment
+} = require("discord.js");
+
 module.exports = async (client, member) => {
   // Load the guild's settings
   const settings = await client.getSettings(member.guild.id);
