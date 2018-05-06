@@ -29,8 +29,7 @@ module.exports = (client) => {
             }
 
           }
-        }
-        else {
+        } else {
           permlvl = permlvl
         }
 
@@ -254,7 +253,7 @@ module.exports = (client) => {
         }
       });
     }
-    
+
   }
 
   client.liveTwitch = async (twitch) => {
@@ -268,7 +267,7 @@ module.exports = (client) => {
 
     if (fs.existsSync(userDir + "/" + twitch + ".txt")) { //varifies that the streamer is on record
       var request = require("request"); //sets a var to request info
-      request("https://api.twitch.tv/kraken/channels/" + twitch + "?client_id=" + settings.twitch_id, function (error, response, body) { //request streamer's in in JSON form
+      request("https://api.twitch.tv/kraken/channels/" + twitch + "?client_id=" + settings.twitch_id2, function (error, response, body) { //request streamer's in in JSON form
         if (!error && response.statusCode == 200) { //if there is no error
           var twitchInfo = JSON.parse(body); //sets twitchInfo to the JSON data
           if (twitchInfo.game == null) { //if there is no game set to the stream
@@ -322,6 +321,33 @@ module.exports = (client) => {
     }
   }
 
+  client.spendMoney = async (id, ammount) => {
+    const userInfo = await client.getUserInfo(id);
+    var points = parseInt(userInfo.points)
+
+    userInfo.points = points - ammount;
+    client.userInfo.get(id).update({
+      "userInfo": userInfo
+    }).run();
+  }
+
+  client.giveMoney = async (id, ammount) => {
+    const userInfo = await client.getUserInfo(id);
+    var points = parseInt(userInfo.points)
+
+    userInfo.points = points + ammount;
+    client.userInfo.get(id).update({
+      "userInfo": userInfo
+    }).run();
+  }
+
+  // client.livePingMixer = async (id, message) => {
+  //   const serverSettings = await client.getsettings(id);
+  //   var livePing = serverSettings.livePing
+  //   if (livePing == "false"){
+
+  //   }
+  // }
 
   /* MISCELANEOUS NON-CRITICAL FUNCTIONS */
 
