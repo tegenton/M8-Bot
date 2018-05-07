@@ -66,7 +66,8 @@ exports.run = (client, message) => {
                 console.log(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!");
                 fs.writeFile("./twitch_time/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
                 const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
-                hook.sendMessage("!live-twitch " + twitchInfo.stream.channel.name);
+                hook.sendMessage(`${twitchInfo.stream.channel.name} went live on Twitch!`);
+                client.liveTwitch(twitchInfo.stream.channel.name)
                 //console.log(twitchInfo)
               }
 
