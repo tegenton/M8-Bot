@@ -44,7 +44,7 @@
         "points": 4
     },
     "milk": {
-        "message": "🐄🥛 {user} went to the family farm and milked some cows. They were paied 4 {pointName}.",
+        "message": "🐄🥛 {user} went to the family farm and milked some cows. They were paid 4 {pointName}.",
         "points": 4
     },
     "babysitter": {
