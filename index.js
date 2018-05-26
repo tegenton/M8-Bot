@@ -1,4 +1,4 @@
-var version = "11.1.0";
+var version = "11.2.0";
 module.exports.version = version;
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
@@ -142,7 +142,6 @@ const streamerFolderMixer = "./mixer";
 const streamerFolderTwitch = "./twitch";
 
 function loadStreamers() {
-
   fs.readdir(streamerFolderMixer, (err, files) => {
     files.forEach(file => {
       var files = file;
@@ -203,10 +202,12 @@ function mixerCheck() {
         // console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
         ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
-          if (mixerStatus == true) { //if the bam info JSON says they are live
+          if (mixerStatus == true) { //if the info JSON says they are live
             var liveTime = (new Date).getTime(); //time the bot sees they went live
             if (!fs.existsSync("./mixer_time/" + mixerInfo.token + "_time.txt")) {
-              fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
+              delay(4000).then(() => {
+                fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
+              });
             }
             var lastLiveTime = fs.readFileSync("./mixer_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
             var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
@@ -221,7 +222,10 @@ function mixerCheck() {
             if (timeDiff < halfHour) { //if its been less than 30min
               console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
             }
-            fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
+            delay(4000).then(() => {
+              fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
+            });
+            // fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
           }
         });
       }
@@ -255,7 +259,9 @@ function twitchCheck() {
   for (tc = 0; tc < streamersTwitch.length; tc++) {
     var liveTime = (new Date).getTime();
     if (!fs.existsSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt")) {
-      fs.writeFile("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "0")
+      delay(4000).then(() => {
+        fs.writeFile("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "0")
+      });
     }
     var lastLiveTime = fs.readFileSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "utf-8");
     var timeDiff = liveTime - lastLiveTime;
@@ -273,7 +279,9 @@ function twitchCheck() {
             var streamStartMS = streamStartTime.getTime();
             if (liveTime - streamStartMS < 1800000) {
               console.log(chalk.magenta(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
-              fs.writeFile("./twitch_time/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+              delay(4000).then(() => {
+                fs.writeFile("./twitch_time/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
+              });
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage(`${twitchInfo.stream.channel.name} went live on Twitch!`);
               client.liveTwitch(twitchInfo.stream.channel.name)
@@ -295,4 +303,3 @@ delay(60000).then(() => {
 setInterval(twitchCheck, 120000); //run the check every 2min
 
 //End Twitch
-
