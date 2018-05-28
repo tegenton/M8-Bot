@@ -31,7 +31,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
     return message.reply(`you neet at least 50 ${client.config.pointName} to play Russian Roulette!`)
   }
 
-  message.channel.send(`Hold on there ${message.member.displayName}, are you sure you wanna go through with this? If you loose, **you will loose all** of your ${client.config.pointName}!\nReply with ` + "`continue` to continue, or `stop` to cancel.");
+  message.channel.send(`Hold on there ${message.member.displayName}, are you sure you wanna go through with this? If you lose, **you will lose all** of your ${client.config.pointName}!\nReply with ` + "`continue` to continue, or `stop` to cancel.");
   return message.channel.awaitMessages(m => m.author.id === message.author.id, {
     "errors": ["time"],
     "max": 1,
