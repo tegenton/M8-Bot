@@ -1,5 +1,10 @@
 exports.run = async (client, message) => {
   const settings = await client.getSettings(message.guild.id);
+
+  if (message.channel.nsfw == false){
+    return message.reply('due to Discord bot rules, urban can only be used in NSFW channels, as the content of the command may not be appreciate for all ages.')
+  }
+
   if (message.content.startsWith(settings.prefix + "define")) {
     var term = message.content.replace(settings.prefix + "define ", "");
   }
