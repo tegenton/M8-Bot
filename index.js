@@ -1,4 +1,4 @@
-var version = "11.2.4";
+var version = "11.2.5";
 module.exports.version = version;
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
@@ -205,26 +205,22 @@ function mixerCheck() {
           if (mixerStatus == true) { //if the info JSON says they are live
             var liveTime = (new Date).getTime(); //time the bot sees they went live
             if (!fs.existsSync("./mixer_time/" + mixerInfo.token + "_time.txt")) {
-              delay(10).then(() => {
-                fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
-              });
+              fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
             }
             var lastLiveTime = fs.readFileSync("./mixer_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
             var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
-            //console.log(timeDiff);
             if (timeDiff >= halfHour) { //if its been 30min or more
               console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage(`${mixerInfo.token} went live on Mixer!`);
               client.liveMixer(mixerInfo.token)
-
             }
             if (timeDiff < halfHour) { //if its been less than 30min
               console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
             }
-            delay(10).then(() => {
+            // delay(10).then(() => {
               fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
-            });
+            // });
             // fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
           }
         });
