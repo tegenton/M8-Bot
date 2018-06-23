@@ -1,4 +1,4 @@
-var version = "11.2.2";
+var version = "11.2.3";
 module.exports.version = version;
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
@@ -205,7 +205,7 @@ function mixerCheck() {
           if (mixerStatus == true) { //if the info JSON says they are live
             var liveTime = (new Date).getTime(); //time the bot sees they went live
             if (!fs.existsSync("./mixer_time/" + mixerInfo.token + "_time.txt")) {
-              delay(200).then(() => {
+              delay(10).then(() => {
                 fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
               });
             }
@@ -222,7 +222,7 @@ function mixerCheck() {
             if (timeDiff < halfHour) { //if its been less than 30min
               console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
             }
-            delay(200).then(() => {
+            delay(10).then(() => {
               fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
             });
             // fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
@@ -259,7 +259,7 @@ function twitchCheck() {
   for (tc = 0; tc < streamersTwitch.length; tc++) {
     var liveTime = (new Date).getTime();
     if (!fs.existsSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt")) {
-      delay(200).then(() => {
+      delay(10).then(() => {
         fs.writeFile("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "0")
       });
     }
@@ -279,7 +279,7 @@ function twitchCheck() {
             var streamStartMS = streamStartTime.getTime();
             if (liveTime - streamStartMS < 1800000) {
               console.log(chalk.magenta(twitchInfo.stream.channel.name + " went live on Twitch, as its been more than 30min!"));
-              delay(200).then(() => {
+              delay(10).then(() => {
                 fs.writeFile("./twitch_time/" + twitchInfo.stream.channel.name + "_time.txt", liveTime); //update last live time
               });
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
