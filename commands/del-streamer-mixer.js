@@ -25,7 +25,7 @@ exports.run = async (client, message) => {
     if (registered === true) { //if they are already registered on the server
       if (currentServers == "301435504761765889, " + chatID) {
         fs.unlinkSync(userDir + "/" + streamer + ".txt");
-        var streamersRaw = fs.readFileSync(rootDir + "./mixer.txt", "utf-8");
+        var streamersRaw = fs.readFileSync(rootDir + "./mixerStreamers.txt", "utf-8");
         var newStreamers = streamersRaw.replace(streamer, "");
         message.reply("you have removed " + streamer + " from the server!");
         return;

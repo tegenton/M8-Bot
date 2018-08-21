@@ -31,7 +31,7 @@ exports.run = (client, message) => {
   if (!fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are not in our database yet
     fs.writeFile(userDir + "/" + streamer + ".txt", "301435504761765889, " + chatID); //makes a new file with the chat ID
     var currentStreamers = fs.readFileSync(rootDir + "./mixerStreamers.txt", "utf-8"); //gets the current total streamer list
-    fs.writeFile(rootDir + "/mixer.txt", currentStreamers + ", " + streamer); //updates the total list with the new streamer added
+    fs.writeFile(rootDir + "/mixerStreamers.txt", currentStreamers + ", " + streamer); //updates the total list with the new streamer added
     var halfHour = 1800000; //time in milis that is 30min
     var addedTime = (new Date).getTime(); //get the time the bot added the streamer
     var halfHourAgo = addedTime - 1800000; //get the time 30min before they were added
