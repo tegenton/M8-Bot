@@ -1,4 +1,4 @@
-var version = "11.3.1";
+var version = "11.4";
 module.exports.version = version;
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
@@ -8,6 +8,8 @@ if (process.version.slice(1).split(".")[0] < 8) throw new Error("Node 8.0.0 or h
 // Load up the discord.js library
 const Discord = require("discord.js");
 require('discord.js-aliases');
+
+
 
 // We also load the rest of the things we need in this file:
 const {
@@ -26,6 +28,15 @@ require("moment-duration-format");
 // some might call it `cootchie`. Either way, when you see `client.something`,
 // or `bot.something`, this is what we're refering to. Your client.
 const client = new Discord.Client();
+
+if (!client.shard.count) { //if unsharded (for some reason) any shard required code will run.
+  var shardnum = 0;
+}
+else{
+  var shardnum = client.shard.id;
+}
+
+console.log(shardnum)
 
 // Here we load the config file that contains our token and our prefix values.
 client.config = require("./config.js");
@@ -200,6 +211,7 @@ function mixerCheck() {
         var mixerInfo = JSON.parse(body); //setting a var for the JSON info
         const mixerID = mixerInfo.id; //getting the ID of the streamer
         // console.log(chalk.cyan("Now stalking " + mixerInfo.token + " on mixer!")); //logs that the bot is watching for the streamer to go live
+
         ca.subscribe(`channel:${mixerID}:update`, data => { //subscribing to the streamer
           var mixerStatus = data.online; //checks if they are online (its a double check just incase the above line miss fires)
           if (mixerStatus == true) { //if the info JSON says they are live
@@ -207,29 +219,33 @@ function mixerCheck() {
             if (!fs.existsSync("./mixer_time/" + mixerInfo.token + "_time.txt")) {
               fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", "0")
             }
+
+
             var lastLiveTime = fs.readFileSync("./mixer_time/" + mixerInfo.token + "_time.txt", "utf-8"); //checks the last live time
             var timeDiff = liveTime - lastLiveTime; //gets the diff of current and last live times
 
 
-            // if (timeDiff >= halfHour) { //if its been 30min or more
+            if (timeDiff >= halfHour) { //if its been 30min or more
               console.log(chalk.cyan(mixerInfo.token + " went live, as its been more than 30min!")); //log that they went live
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage(`${mixerInfo.token} went live on Mixer!`);
-              client.liveMixer(mixerInfo.token)
-            // }
+              client.shard.broadcastEval(client.liveMixer(mixerInfo.token)) //should tell all shards to do the following
+
+            }
 
 
-            // if (timeDiff < halfHour) { //if its been less than 30min
+            if (timeDiff < halfHour) { //if its been less than 30min
               // console.log(mixerInfo.token + " attempted to go live, but its been under 30min!"); //log that its been under 30min
-            // }
+            }
 
 
             // delay(10).then(() => {
-              fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
+            fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
             // });
             // fs.writeFile("./mixer_time/" + mixerInfo.token + "_time.txt", liveTime); //update last live time regardless if they went live or not
           }
         });
+
       }
     });
   }
@@ -237,9 +253,12 @@ function mixerCheck() {
 
 }
 const delay = require("delay");
-delay(30000).then(() => {
-  mixerCheck();
-});
+if (shardnum == 0) { //only 1 shard (first) will run this
+  delay(30000).then(() => {
+    mixerCheck();
+  });
+}
+
 //End Mixer ------------------------------------------------------------------------------------------
 
 
@@ -267,7 +286,7 @@ function twitchCheck() {
     }
     var lastLiveTime = fs.readFileSync("./twitch_time/" + streamersTwitch[tc] + "_time.txt", "utf-8");
     var timeDiff = liveTime - lastLiveTime;
-    // if (timeDiff >= halfHour) { //if its been 30min or more
+    if (timeDiff >= halfHour) { //if its been 30min or more
       var request = require("request"); //the var to request details on the streamer
       request("https://api.twitch.tv/kraken/streams/" + streamersTwitch[tc] + "?client_id=" + settings.twitch_id, function (error, response, body) {
         if (!error && response.statusCode == 200) { //if there is no error
@@ -286,20 +305,24 @@ function twitchCheck() {
               });
               const hook = new Discord.WebhookClient(settings.liveID, settings.hookToken); //sets info about a webhook
               hook.sendMessage(`${twitchInfo.stream.channel.name} went live on Twitch!`);
-              client.liveTwitch(twitchInfo.stream.channel.name)
+              // client.liveTwitch(twitchInfo.stream.channel.name)
+              client.shard.broadcastEval(client.liveTwitch(twitchInfo.stream.channel.name)) //should tell all shards to do the following
+
 
               //console.log(twitchInfo)
             }
           }
         }
       });
-    // }
+    }
   }
 }
+if (shardnum == 0) { //only 1 shard (first) will run this
+  delay(60000).then(() => {
+    twitchCheck();
+  });
+}
 
-delay(60000).then(() => {
-  twitchCheck();
-});
 
 
 setInterval(twitchCheck, 120000); //run the check every 2min
