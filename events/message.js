@@ -13,6 +13,15 @@ module.exports = async (client, message) => {
   // and not get into a spam loop (we call that "botception").
   if (message.author.bot && message.author.id != client.config.liveID) return;
 
+  const fs = require("fs");
+
+  var disabledPPL = fs.readFileSync("./disabledPPL.txt", "utf-8");
+
+  if (disabledPPL.includes(message.author.id)){
+    return;
+  }
+
+
   // Grab the settings for this server from the PersistentCollection
   // If there is no guild, get default conf (DMs)
   const settings = message.guild ?
