@@ -1,7 +1,7 @@
   const fs = require("fs");
 
 
-  exports.run = async (client, message, args, level) => { // eslint-disable-line no-unused-vars
+  exports.run = async (client, message, level) => { // eslint-disable-line no-unused-vars
 
     const args = message.content.split(" ").slice(1); //divide the message into args
     const plat = args[0]; //arg 0 is the platform

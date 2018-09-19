@@ -1,4 +1,4 @@
-var version = "11.5";
+var version = "11.5.1";
 module.exports.version = version;
 // This will check if the node version you are running is the required
 // Node version, if it isn't it will throw the following error to inform
