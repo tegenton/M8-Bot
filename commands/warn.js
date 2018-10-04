@@ -11,11 +11,12 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 
   //message.reply(user.user.avatarURL)
   const warnEmbed = new Discord.RichEmbed()
-    .setAuthor("M8 Bot Moderation")
+    .setAuthor("M8 Bot 👻Spooky Moderation👻")
     // .addField("Warned User", `${user} (${user.user.tag})`)
-    .addField("Spooked User", `${user} (${user.user.tag})`)
-    .addField("Moderator", `${message.author} (${message.member.user.tag})`)
-    .addField("Reason", args.join(" ").split(person[0] + " ")[1])
+    .addField("👻Spooked User👻", `${user} (${user.user.tag})`)
+    // .addField("Moderator", `${message.author} (${message.member.user.tag})`)
+    .addField("👻Spooker👻", `${message.author} (${message.member.user.tag})`)
+    .addField("👻Spooky Reason👻", args.join(" ").split(person[0] + " ")[1])
     .setFooter("Sent via M8 Bot", "http://m8bot.js.org/img/profile.png")
     .setThumbnail(user.user.avatarURL)
     .setColor(0x9900FF);
