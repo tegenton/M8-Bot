@@ -15,33 +15,36 @@ exports.run = (client, message) => {
 
   message.delete();
   //if an owner adds a streamer
-  const args = message.content.split(" ").slice(1); //divide the message into args
-  const streamer = args[0].toLowerCase(); //arg 1 is the streamer's name
+  const streamers = message.content.split(" ").slice(1); //divide the message into args, removes command
   var chatID = message.channel.id; //gets the chat ID that they added the streamer to
   var owner = message.guild.ownerID; //gets the server owner's id
-  if (fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are already in our database
-    var currentServers = fs.readFileSync(userDir + "/" + streamer + ".txt", "utf-8"); //get the current allowed servers from their file
-    var registered = currentServers.includes(chatID); //checks if the server they are being added to already has them
-    if (registered === true) { //if they are already registered on the server
-      message.reply("the streamer " + streamer + " is already registered!"); //tell the server owner they are alreayd on
+  var streamer = "";
+  for (var i = 0; i < streamers.length; i++) {
+    streamer = streamers[i].toLowerCase();
+    if (fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are already in our database
+      var currentServers = fs.readFileSync(userDir + "/" + streamer + ".txt", "utf-8"); //get the current allowed servers from their file
+      var registered = currentServers.includes(chatID); //checks if the server they are being added to already has them
+      if (registered === true) { //if they are already registered on the server
+        message.reply("the streamer " + streamer + " is already registered!"); //tell the server owner they are alreayd on
+      }
+      if (registered === false && !currentServers.includes(chatID)) { //if they arent on the server alreayd
+        fs.writeFile(userDir + "/" + streamer + ".txt", currentServers + ", " + chatID); //adds the new server ID to their list
+        message.reply("you have added the streamer " + streamer + " to your server!"); //tells the server owner that the streamer was added
+      }
     }
-    if (registered === false && !currentServers.includes(chatID)) { //if they arent on the server alreayd
-      fs.writeFile(userDir + "/" + streamer + ".txt", currentServers + ", " + chatID); //adds the new server ID to their list
+    if (!fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are not in our database yet
+      fs.writeFile(userDir + "/" + streamer + ".txt", "301435504761765889, " + chatID); //makes a new file with the chat ID
       message.reply("you have added the streamer " + streamer + " to your server!"); //tells the server owner that the streamer was added
-    }
-  }
-  if (!fs.existsSync(userDir + "/" + streamer + ".txt")) { //if they are not in our database yet
-    fs.writeFile(userDir + "/" + streamer + ".txt", "301435504761765889, " + chatID); //makes a new file with the chat ID
-    message.reply("you have added the streamer " + streamer + " to your server!"); //tells the server owner that the streamer was added
-    var currentStreamers = fs.readFileSync(rootDir + "./twitchStreamers.txt", "utf-8"); //gets the current total streamer list
-    fs.writeFile(rootDir + "/twitchStreamers.txt", currentStreamers + ", " + streamer); //updates the total list with the new streamer added
-    var halfHour = 1800000; //time in milis that is 30min
-    var addedTime = (new Date).getTime(); //get the time the bot added the streamer
-    var halfHourAgo = addedTime - 1800000; //get the time 30min before the boot
-    fs.writeFile(timeDir + "/" + streamer + "_time.txt", halfHourAgo);
-    var request = require("request"); //the var to request details on the streamer
+      var currentStreamers = fs.readFileSync(rootDir + "./twitchStreamers.txt", "utf-8"); //gets the current total streamer list
+      fs.writeFile(rootDir + "/twitchStreamers.txt", currentStreamers + ", " + streamer); //updates the total list with the new streamer added
+      var halfHour = 1800000; //time in milis that is 30min
+      var addedTime = (new Date).getTime(); //get the time the bot added the streamer
+      var halfHourAgo = addedTime - 1800000; //get the time 30min before the boot
+      fs.writeFile(timeDir + "/" + streamer + "_time.txt", halfHourAgo);
+      var request = require("request"); //the var to request details on the streamer
 
-    console.log("Now stalking " + streamer + " on Twitch!");
+      console.log("Now stalking " + streamer + " on Twitch!");
+    }
 
     function twitchCheck() {
       console.log("Checking Twitch!");
